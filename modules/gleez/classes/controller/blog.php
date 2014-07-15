@@ -19,6 +19,7 @@ class Controller_Blog extends Template {
 	 */
 	public function before()
 	{
+                $this->template="blog.tpl";
 		$id = $this->request->param('id', FALSE);
 
 		if ($id AND $this->request->action() == 'index')
@@ -69,6 +70,7 @@ class Controller_Blog extends Template {
 	 */
 	public function action_list()
 	{
+
 		$posts = ORM::factory('blog');
 
 		if ( ! ACL::check('administer blog'))
@@ -91,11 +93,13 @@ class Controller_Blog extends Template {
 
 		$config = Config::load('blog');
 
-		$this->title = __('Blogs');
+		$this->title = __('Neighbor Talk');
+                $widget=$this->_widgets;
 
 		$view = View::factory('blog/list')
 			->set('teaser',      TRUE)
 			->set('config',      $config)
+                        ->set('widget', $widget)
 			->bind('rss_link',   $rss_link)
 			->bind('pagination', $pagination)
 			->bind('posts',      $posts);

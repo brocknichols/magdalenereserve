@@ -182,7 +182,7 @@ This will generate the following query:
 
 Query Builder objects can be passed as parameters to many of the methods to create subqueries. Let's take the previous example query and pass it to a new query.
 
-    $sub = DB::select('username', array(DB::expr('COUNT(`id`)'), 'total_posts')
+	$sub = DB::select('username', array(DB::expr('COUNT(`id`)'), 'total_posts')
         ->from('posts')->group_by('username')->having('total_posts', '>=', 10);
     
     $query = DB::select('profiles.*', 'posts.total_posts')->from('profiles')

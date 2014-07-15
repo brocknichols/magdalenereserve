@@ -1,19 +1,61 @@
-# Kohana PHP Framework
+# What Is Gleez CMS?
 
-[Kohana](http://kohanaframework.org/) is an elegant, open source, and object oriented HMVC framework built using PHP5, by a team of volunteers. It aims to be swift, secure, and small.
+[Gleez CMS](http://gleezcms.org) is a user-friendly website [Content Management System](http://en.wikipedia.org/wiki/CMS).
 
-Released under a [BSD license](http://kohanaframework.org/license), Kohana can be used legally for any open source, commercial, or personal project.
+With [Gleez CMS](http://gleezcms.org) you can easily build dynamic websites within a matter of minutes with just the click of your mouse! Maintain your web content, navigation and even limit what groups or specific users can access, from anywhere in the world with just a web browser!
+
+With an emphasis on security and functionality, [Gleez CMS](http://gleezcms.org) is a professional and robust system suitable for any business or organization website. Built on the [PHP](http://php.net) programming language and the [MySQL](http://www.mysql.com) database, [Gleez CMS](http://gleezcms.org) delivers superb performance on any size website.
+
+## Features
+
+* Website Navigation and Web Pages
+* Users, User Groups, and Permissions
+* Contents or Articles for News or Blogging
+* Content Categories
+* Content Comments
+* Content Tagging
+* Content Blocks or Widgets
+* Extensions, Modules or Plugins
+* Themes and Layouts
+* Input formats like Markdown, HTML etc
+* Shortcodes
+* oAuth2 login via Google/Facebook/Windows
+* Resize images on fly with caching
+* Other Details like SEO, Media, Gravatar, etc.
+
+## Demo
+
+You can visit our demo site to become familiar with the basic features of Gleez CMS
+
+[http://demo.gleezcms.org](http://demo.gleezcms.org)
+
+| Login details | Typical user | Administrator |
+| ------------- |:------------:| -------------:|
+| *Username*    | demo         | demoadmin     |
+| *Password*    | demo         | demoadmin     |
+
+## Internationalization (i18n Support)
+
+The available locale(s) in Gleez are:
+
++ English
++ Estonian
++ Chinese (Simplified)
++ Russian
++ Italian
++ Romanian
 
 ## Documentation
-Kohana's documentation can be found at <http://kohanaframework.org/documentation> which also contains an API browser.
 
-The `userguide` module included in all Kohana releases also allows you to view the documentation locally. Once the `userguide` module is enabled in the bootstrap, it is accessible from your site via `/index.php/guide` (or just `/guide` if you are rewriting your URLs).
+We create the documentation together with the community and other Gleez users/developers.
+The latest documentation is available on the [Gleez Wiki](https://github.com/gleez/cms/wiki).
 
-## Reporting bugs
-If you've stumbled across a bug, please help us out by [reporting the bug](http://dev.kohanaframework.org/projects/kohana3/) you have found. Simply log in or register and submit a new issue, leaving as much information about the bug as possible, e.g.
+* [Installation](https://github.com/gleez/cms/wiki/Installation)
+* [Contributing](https://github.com/gleez/cms/wiki/Contributing)
 
-* Steps to reproduce
-* Expected result
-* Actual result
+Chat with fellow Gleez users at [#gleez on Freenode](http://webchat.freenode.net/?channels=gleez)
 
-This will help us to fix the bug as quickly as possible, and if you'd like to fix it yourself feel free to [fork us on GitHub](https://github.com/kohana) and submit a pull request!
+
+***
+
+[Official Website](http://gleezcms.org) | [Facebook Page](https://www.facebook.com/gleezcms) | [License](https://github.com/gleez/cms/wiki/License) | [Contributors](https://github.com/gleez/cms/wiki/Contributors)

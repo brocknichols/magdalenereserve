@@ -1,4 +1,6 @@
 <?php foreach($posts as $i => $post): ?>
+<div class="row">
+
 	<div id="blog-<?php echo $i; ?>" class="blog-list <?php echo ($post->sticky) ? ' sticky' : ' blog-'. $post->status; ?>">
 		<h2 class="blog-title">
 			<?php echo HTML::anchor($post->url, $post->title); ?>
@@ -9,7 +11,11 @@
 			->set('config',     $config)
 			->set('page_title', TRUE);
 		?>
+
 	</div>
+
+</div>
 <?php endforeach; ?>
 
 <?php echo $pagination; ?>
+

@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') or die('No direct access allowed.');
+<?php
 /**
  * Codebench — A benchmarking module.
  *
@@ -14,7 +14,7 @@
 <head>
 
 	<meta charset="utf-8" />
-	<title><?php if ($class !== ''): ?>
+	<title><?php if (!empty($class)): ?>
 			<?php echo $class, ' · ' ?>
 		<?php endif; ?>Codebench</title>
 
@@ -250,7 +250,7 @@
 	<?php } ?>
 
 	<p id="footer">
-		Page executed in <strong><?php echo round(microtime(TRUE) - KOHANA_START_TIME, 2) ?>&nbsp;s</strong>
+		Page executed in <strong><?php echo round(microtime(TRUE) - GLEEZ_START_TIME, 2) ?>&nbsp;s</strong>
 		using <strong><?php echo Text::widont(Text::bytes(memory_get_usage(), 'MB')) ?></strong> of memory.<br />
 		<a href="http://github.com/kohana/codebench">Codebench</a>, a <a href="http://kohanaframework.org/">Kohana</a> module
 		by <a href="http://www.geertdedeckere.be/article/introducing-codebench">Geert De Deckere</a>.

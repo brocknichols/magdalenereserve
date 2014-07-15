@@ -236,6 +236,7 @@ class ACL {
 	{
 		if ( ! self::check($perm_name, $user))
 		{
+                    
 			if ( ! is_null($callback))
 			{
 				// Check if the $callback is a valid callback
@@ -379,19 +380,18 @@ class ACL {
 		$perms = array();
 
 		$cache = Cache::instance('roles');
-		
+
+		 
 		if( ! $perms = $cache->get('site_perms'))
 		{
 			$result = DB::select('rid', 'permission')
 						->from('permissions')
 						->as_object(TRUE)
 						->execute();
-
 			foreach ($result as $row)
 			{
 				$perms[$row->rid][$row->permission] = self::ALLOW;
 			}
-			
 			//set the cache
 			$cache->set('site_perms', $perms, DATE::DAY);
 		}
@@ -409,14 +409,15 @@ class ACL {
 		$user_perms = $user->perms();
 		$site_perms = self::site_perms();
 		$user_roles = self::get_user_roles($user);
-	
 		// Filter out active roles
 		$roles = array_filter(array_keys($user_roles), array('self', 'is_role'));
+
 		self::$_perm[$user->id] = array();
 
 		//role based permissions
 		foreach($roles as $role)
 		{
+
 			if(isset($site_perms[$role]) AND is_array($site_perms[$role]))
 			{
 				self::$_perm[$user->id] = array_merge(
@@ -424,11 +425,13 @@ class ACL {
 					(array) $site_perms[$role]
 				);
 			}
+                        
 		}
 
 		// User based permissions
 		foreach($user_perms as $perm => $val)
-		{
+		{   
+                    
 			if($val == self::PERM_ALLOW)
 			{
 				self::$_perm[$user->id] = array_merge(self::$_perm[$user->id], array($perm => self::ALLOW) );

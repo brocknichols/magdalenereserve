@@ -22,9 +22,7 @@ class Kohana_RouteTest extends Unittest_TestCase
 	/**
 	 * Remove all caches
 	 */
-	// @codingStandardsIgnoreStart
 	public function setUp()
-	// @codingStandardsIgnoreEnd
 	{
 		parent::setUp();
 
@@ -34,9 +32,7 @@ class Kohana_RouteTest extends Unittest_TestCase
 	/**
 	 * Removes cache files created during tests
 	 */
-	// @codingStandardsIgnoreStart
 	public function tearDown()
-	// @codingStandardsIgnoreEnd
 	{
 		parent::tearDown();
 
@@ -119,34 +115,6 @@ class Kohana_RouteTest extends Unittest_TestCase
 	}
 
 	/**
-	 * Check appending cached routes. See http://dev.kohanaframework.org/issues/4347
-	 *
-	 * @test
-	 * @covers Route::cache
-	 */
-	public function test_cache_append_routes()
-	{
-		$cached = Route::all();
-
-		// First we create the cache
-		Route::cache(TRUE);
-
-		// Now lets modify the "current" routes
-		Route::set('nonsensical_route', 'flabbadaga/ding_dong');
-
-		$modified = Route::all();
-
-		// Then try and load said cache
-		$this->assertTrue(Route::cache(NULL, TRUE));
-
-		// Check the route cache flag
-		$this->assertTrue(Route::$cache);
-
-		// And if all went ok the nonsensical route should exist with the other routes...
-		$this->assertEquals(Route::all(), $cached + $modified);
-	}
-
-	/**
 	 * Route::cache() should return FALSE if cached routes could not be found
 	 *
 	 * The cache is cleared before and after each test in setUp tearDown
@@ -196,6 +164,7 @@ class Kohana_RouteTest extends Unittest_TestCase
 	{
 		return array(
 			array('<controller>/<action>', '<controller>/<action>'),
+			array(array('Route_Holder', 'default_callback'), array('Route_Holder', 'default_callback')),
 		);
 	}
 
@@ -252,6 +221,7 @@ class Kohana_RouteTest extends Unittest_TestCase
 	{
 		return array(
 			array('projects/(<project_id>/(<controller>(/<action>(/<id>))))', 'apple/pie'),
+			array(array('Route_Holder', 'default_callback'), 'apple/pie'),
 		);
 	}
 
@@ -267,14 +237,7 @@ class Kohana_RouteTest extends Unittest_TestCase
 	{
 		$route = new Route($uri);
 
-		// Mock a request class with the $match uri
-		$stub = $this->getMock('Request', array('uri'), array($match));
-		$stub->expects($this->any())
-			->method('uri')
-			// Request::uri() called by Route::matches() will return $match
-			->will($this->returnValue($match));
-
-		$this->assertSame(FALSE, $route->matches($stub));
+		$this->assertSame(FALSE, $route->matches($match));
 	}
 
 	/**
@@ -288,7 +251,13 @@ class Kohana_RouteTest extends Unittest_TestCase
 			array(
 				'(<controller>(/<action>(/<id>)))',
 				'welcome/index',
-				'Welcome',
+				'welcome',
+				'index',
+			),
+			array(
+				array('Route_Holder', 'matches_returns_array_of_parameters_on_successful_match'),
+				'apple/pie',
+				'welcome',
 				'index',
 			),
 		);
@@ -307,14 +276,7 @@ class Kohana_RouteTest extends Unittest_TestCase
 	{
 		$route = new Route($uri);
 
-		// Mock a request class with the $m uri
-		$request = $this->getMock('Request', array('uri'), array($m));
-		$request->expects($this->any())
-			->method('uri')
-			// Request::uri() called by Route::matches() will return $m
-			->will($this->returnValue($m));
-
-		$matches = $route->matches($request);
+		$matches = $route->matches($m);
 
 		$this->assertInternalType('array', $matches);
 		$this->assertArrayHasKey('controller', $matches);
@@ -336,8 +298,8 @@ class Kohana_RouteTest extends Unittest_TestCase
 			array(
 				'<controller>(/<action>(/<id>))',
 				NULL,
-				array('controller' => 'Welcome', 'action' => 'index'),
-				'Welcome',
+				array('controller' => 'welcome', 'action' => 'index'),
+				'welcome',
 				'index',
 				'unit/test/1',
 				array(
@@ -345,13 +307,27 @@ class Kohana_RouteTest extends Unittest_TestCase
 					'action' => 'test',
 					'id' => '1'
 				),
-				'Welcome',
+				'welcome',
 			),
 			array(
 				'(<controller>(/<action>(/<id>)))',
 				NULL,
 				array('controller' => 'welcome', 'action' => 'index'),
-				'Welcome',
+				'welcome',
+				'index',
+				'unit/test/1',
+				array(
+					'controller' => 'unit',
+					'action' => 'test',
+					'id' => '1'
+				),
+				'',
+			),
+			array(
+				array('Route_Holder', 'default_return_callback'),
+				'(<controller>(/<action>(/<id>)))',
+				array('controller' => 'welcome', 'action' => 'index'),
+				'welcome',
 				'index',
 				'unit/test/1',
 				array(
@@ -380,13 +356,7 @@ class Kohana_RouteTest extends Unittest_TestCase
 
 		$this->assertSame($defaults, $route->defaults());
 
-		// Mock a request class
-		$request = $this->getMock('Request', array('uri'), array($default_uri));
-		$request->expects($this->any())
-			->method('uri')
-			->will($this->returnValue($default_uri));
-
-		$matches = $route->matches($request);
+		$matches = $route->matches($default_uri);
 
 		$this->assertInternalType('array', $matches);
 		$this->assertArrayHasKey('controller', $matches);
@@ -400,128 +370,6 @@ class Kohana_RouteTest extends Unittest_TestCase
 	}
 
 	/**
-	 * Provider for test_optional_groups_containing_specified_params
-	 *
-	 * @return array
-	 */
-	public function provider_optional_groups_containing_specified_params()
-	{
-		return array(
-			/**
-			 * Specifying this should cause controller and action to show up
-			 * refs #4113
-			 */
-			array(
-				'(<controller>(/<action>(/<id>)))',
-				array('controller' => 'welcome', 'action' => 'index'),
-				array('id' => '1'),
-				'welcome/index/1',
-			),
-			array(
-				'<controller>(/<action>(/<id>))',
-				array('controller' => 'welcome', 'action' => 'index'),
-				array('action' => 'foo'),
-				'welcome/foo',
-			),
-			array(
-				'<controller>(/<action>(/<id>))',
-				array('controller' => 'welcome', 'action' => 'index'),
-				array('action' => 'index'),
-				'welcome',
-			),
-			/**
-			 * refs #4630
-			 */
-			array(
-				'api(/<version>)/const(/<id>)(/<custom>)',
-				array('version' => 1),
-				NULL,
-				'api/const',
-			),
-			array(
-				'api(/<version>)/const(/<id>)(/<custom>)',
-				array('version' => 1),
-				array('version' => 9),
-				'api/9/const',
-			),
-			array(
-				'api(/<version>)/const(/<id>)(/<custom>)',
-				array('version' => 1),
-				array('id' => 2),
-				'api/const/2',
-			),
-			array(
-				'api(/<version>)/const(/<id>)(/<custom>)',
-				array('version' => 1),
-				array('custom' => 'x'),
-				'api/const/x',
-			),
-			array(
-				'(<controller>(/<action>(/<id>)(/<type>)))',
-				array('controller' => 'test', 'action' => 'index', 'type' => 'html'),
-				array('type' => 'json'),
-				'test/index/json',
-			),
-			array(
-				'(<controller>(/<action>(/<id>)(/<type>)))',
-				array('controller' => 'test', 'action' => 'index', 'type' => 'html'),
-				array('id' => 123),
-				'test/index/123',
-			),
-			array(
-				'(<controller>(/<action>(/<id>)(/<type>)))',
-				array('controller' => 'test', 'action' => 'index', 'type' => 'html'),
-				array('id' => 123, 'type' => 'html'),
-				'test/index/123',
-			),
-			array(
-				'(<controller>(/<action>(/<id>)(/<type>)))',
-				array('controller' => 'test', 'action' => 'index', 'type' => 'html'),
-				array('id' => 123, 'type' => 'json'),
-				'test/index/123/json',
-			),
-		);
-	}
-
-	/**
-	 * When an optional param is specified, the optional params leading up to it
-	 * must be in the URI.
-	 *
-	 * @dataProvider provider_optional_groups_containing_specified_params
-	 *
-	 * @ticket 4113
-	 * @ticket 4630
-	 */
-	public function test_optional_groups_containing_specified_params($uri, $defaults, $params, $expected)
-	{
-		$route = new Route($uri, NULL);
-		$route->defaults($defaults);
-
-		$this->assertSame($expected, $route->uri($params));
-	}
-
-	/**
-	 * Optional params should not be used if what is passed in is identical
-	 * to the default.
-	 *
-	 * refs #4116
-	 *
-	 * @test
-	 * @covers Route::uri
-	 */
-	public function test_defaults_are_not_used_if_param_is_identical()
-	{
-		$route = new Route('(<controller>(/<action>(/<id>)))');
-		$route->defaults(array(
-			'controller' => 'welcome',
-			'action'     => 'index'
-		));
-
-		$this->assertSame('', $route->uri(array('controller' => 'welcome')));
-		$this->assertSame('welcome2', $route->uri(array('controller' => 'welcome2')));
-	}
-
-	/**
 	 * Provider for test_required_parameters_are_needed
 	 *
 	 * @return array
@@ -531,6 +379,11 @@ class Kohana_RouteTest extends Unittest_TestCase
 		return array(
 			array(
 				'admin(/<controller>(/<action>(/<id>)))',
+				'admin',
+				'admin/users/add',
+			),
+			array(
+				array('Route_Holder', 'required_parameters_are_needed'),
 				'admin',
 				'admin/users/add',
 			),
@@ -549,31 +402,13 @@ class Kohana_RouteTest extends Unittest_TestCase
 	{
 		$route = new Route($uri);
 
-		// Mock a request class that will return empty uri
-		$request = $this->getMock('Request', array('uri'), array(''));
-		$request->expects($this->any())
-			->method('uri')
-			->will($this->returnValue(''));
+		$this->assertFalse($route->matches(''));
 
-		$this->assertFalse($route->matches($request));
-
-		// Mock a request class that will return route1
-		$request = $this->getMock('Request', array('uri'), array($matches_route1));
-		$request->expects($this->any())
-			->method('uri')
-			->will($this->returnValue($matches_route1));
-
-		$matches = $route->matches($request);
+		$matches = $route->matches($matches_route1);
 
 		$this->assertInternalType('array', $matches);
 
-		// Mock a request class that will return route2 uri
-		$request = $this->getMock('Request', array('uri'), array($matches_route2));
-		$request->expects($this->any())
-			->method('uri')
-			->will($this->returnValue($matches_route2));
-
-		$matches = $route->matches($request);
+		$matches = $route->matches($matches_route2);
 
 		$this->assertInternalType('array', $matches);
 		// $this->assertSame(5, count($matches));
@@ -592,6 +427,12 @@ class Kohana_RouteTest extends Unittest_TestCase
 			array(
 				'info/about_us',
 				NULL,
+				'info/about_us',
+				array('some' => 'random', 'params' => 'to confuse'),
+			),
+			array(
+				array('Route_Holder', 'reverse_routing_returns_routes_uri_if_route_is_static'),
+				'info/about_us',
 				'info/about_us',
 				array('some' => 'random', 'params' => 'to confuse'),
 			),
@@ -629,13 +470,9 @@ class Kohana_RouteTest extends Unittest_TestCase
 				NULL,
 				array('action' => 'awesome-action'),
 			),
-			/**
-			 * Optional params are required when they lead to a specified param
-			 * refs #4113
-			 */
 			array(
-				'(<controller>(/<action>))',
-				NULL,
+				array('Route_Holder', 'default_return_callback'),
+				'<controller>(/<action)',
 				array('action' => 'awesome-action'),
 			),
 		);
@@ -655,8 +492,18 @@ class Kohana_RouteTest extends Unittest_TestCase
 	{
 		$route = new Route($uri, $regex);
 
-		$this->setExpectedException('Kohana_Exception', 'controller');
-		$route->uri($uri_array);
+		try
+		{
+			$route->uri($uri_array);
+
+			$this->fail('Route::uri should throw exception if required param is not provided');
+		}
+		catch(Exception $e)
+		{
+			$this->assertInstanceOf('Kohana_Exception', $e);
+			// Check that the error in question is about the controller param
+			$this->assertContains('controller', $e->getMessage());
+		}
 	}
 
 	/**
@@ -670,6 +517,21 @@ class Kohana_RouteTest extends Unittest_TestCase
 			array(
 				'<controller>/<action>(/<id>)',
 				NULL,
+				'users/edit',
+				array(
+					'controller' => 'users',
+					'action'     => 'edit',
+				),
+				'users/edit/god',
+				array(
+					'controller' => 'users',
+					'action'     => 'edit',
+					'id'         => 'god',
+				),
+			),
+			array(
+				array('Route_Holder', 'default_return_callback'),
+				'<controller>/<action>(/<id>)',
 				'users/edit',
 				array(
 					'controller' => 'users',
@@ -853,60 +715,4 @@ class Kohana_RouteTest extends Unittest_TestCase
 
 		$this->assertSame($expected_uri, Route::get('test')->uri());
 	}
-
-	/**
-	 * Provider for test_route_filter_modify_params
-	 *
-	 * @return array
-	 */
-	public function provider_route_filter_modify_params()
-	{
-		return array(
-			array(
-				'<controller>/<action>',
-				array(
-					'controller'  => 'Test',
-					'action'      => 'same',
-				),
-				array('Route_Holder', 'route_filter_modify_params_array'),
-				'test/different',
-				array(
-					'controller'  => 'Test',
-					'action'      => 'modified',
-				),
-			),
-			array(
-				'<controller>/<action>',
-				array(
-					'controller'  => 'test',
-					'action'      => 'same',
-				),
-				array('Route_Holder', 'route_filter_modify_params_false'),
-				'test/fail',
-				FALSE,
-			),
-		);
-	}
-
-	/**
-	 * Tests that route filters can modify parameters
-	 *
-	 * @covers Route::filter
-	 * @dataProvider provider_route_filter_modify_params
-	 */
-	public function test_route_filter_modify_params($route, $defaults, $filter, $uri, $expected_params)
-	{
-		$route = new Route($route);
-
-		// Mock a request class
-		$request = $this->getMock('Request', array('uri'), array($uri));
-		$request->expects($this->any())
-			->method('uri')
-			->will($this->returnValue($uri));
-
-		$params = $route->defaults($defaults)->filter($filter)->matches($request);
-
-		$this->assertSame($expected_params, $params);
-	}
-
 }

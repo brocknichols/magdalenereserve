@@ -38,7 +38,7 @@ define('EXT', '.php');
  * this bootstrap file somewhere else then you'll need to modify this value to 
  * compensate.
  */
-define('DOCROOT', realpath(dirname(__FILE__).'/../../').DIRECTORY_SEPARATOR);
+define('DOCROOT', realpath(dirname(__FILE__).'/../../').DS);
 
 /**
  * Set the PHP error reporting level. If you set this in php.ini, you remove this.
@@ -81,9 +81,9 @@ if ( ! is_dir($system) AND is_dir(DOCROOT.$system))
 }
 
 // Define the absolute paths for configured directories
-define('APPPATH', realpath($application).DIRECTORY_SEPARATOR);
-define('MODPATH', realpath($modules).DIRECTORY_SEPARATOR);
-define('SYSPATH', realpath($system).DIRECTORY_SEPARATOR);
+define('APPPATH', realpath($application).DS);
+define('MODPATH', realpath($modules).DS);
+define('SYSPATH', realpath($system).DS);
 
 // Clean up the configuration vars
 unset($application, $modules, $system);
@@ -91,17 +91,17 @@ unset($application, $modules, $system);
 /**
  * Define the start time of the application, used for profiling.
  */
-if ( ! defined('KOHANA_START_TIME'))
+if ( ! defined('GLEEZ_START_TIME'))
 {
-	define('KOHANA_START_TIME', microtime(TRUE));
+	define('GLEEZ_START_TIME', microtime(TRUE));
 }
 
 /**
  * Define the memory usage at the start of the application, used for profiling.
  */
-if ( ! defined('KOHANA_START_MEMORY'))
+if ( ! defined('GLEEZ_START_MEMORY'))
 {
-	define('KOHANA_START_MEMORY', memory_get_usage());
+	define('GLEEZ_START_MEMORY', memory_get_usage());
 }
 
 // Bootstrap the application

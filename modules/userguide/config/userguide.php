@@ -1,7 +1,6 @@
-<?php defined('SYSPATH') OR die('No direct access allowed.');
+<?php
 
-return array
-(
+return array(
 	// Enable the API browser.  TRUE or FALSE
 	'api_browser'  => TRUE,
 
@@ -20,20 +19,15 @@ return array
 
 			// Whether this modules userguide pages should be shown
 			'enabled' => TRUE,
-			
+
 			// The name that should show up on the userguide index page
 			'name' => 'Userguide',
 
 			// A short description of this module, shown on the index page
-			'description' => 'Documentation viewer and api generation.',
-			
+			'description' => 'Documentation viewer and api generation',
+
 			// Copyright message, shown in the footer for this module
 			'copyright' => '&copy; 2008–2012 Kohana Team',
-		)	
-	),
-
-	// Set transparent class name segments
-	'transparent_prefixes' => array(
-		'Kohana' => TRUE,
+		)
 	)
 );

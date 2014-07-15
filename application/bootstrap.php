@@ -1,28 +1,18 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php defined('SYSPATH') OR die('No direct script access.');
 
 // -- Environment setup --------------------------------------------------------
 
-// Load the core Kohana class
-require SYSPATH.'classes/Kohana/Core'.EXT;
-
-if (is_file(APPPATH.'classes/Kohana'.EXT))
-{
-	// Application extends the core
-	require APPPATH.'classes/Kohana'.EXT;
-}
-else
-{
-	// Load empty core extension
-	require SYSPATH.'classes/Kohana'.EXT;
-}
+// Load the core core classes
+require GLZPATH.'classes/kohana'.EXT;
+require GLZPATH.'classes/gleez'.EXT;
 
 /**
  * Set the default time zone.
  *
- * @link http://kohanaframework.org/guide/using.configuration
- * @link http://www.php.net/manual/timezones
+ * @link  http://kohanaframework.org/guide/using.configuration
+ * @link  http://php.net/timezones
  */
-date_default_timezone_set('America/Chicago');
+date_default_timezone_set('UTC');
 
 /**
  * Set the default locale.
@@ -35,24 +25,16 @@ setlocale(LC_ALL, 'en_US.utf-8');
 /**
  * Enable the Kohana auto-loader.
  *
- * @link http://kohanaframework.org/guide/using.autoloading
- * @link http://www.php.net/manual/function.spl-autoload-register
+ * @link  http://kohanaframework.org/guide/using.autoloading
+ * @link  http://php.net/spl_autoload_register
  */
 spl_autoload_register(array('Kohana', 'auto_load'));
 
 /**
- * Optionally, you can enable a compatibility auto-loader for use with
- * older modules that have not been updated for PSR-0.
- *
- * It is recommended to not enable this unless absolutely necessary.
- */
-//spl_autoload_register(array('Kohana', 'auto_load_lowercase'));
-
-/**
  * Enable the Kohana auto-loader for unserialization.
  *
- * @link http://www.php.net/manual/function.spl-autoload-call
- * @link http://www.php.net/manual/var.configuration#unserialize-callback-func
+ * @link  http://php.net/spl_autoload_call
+ * @link  http://php.net/manual/var.configuration.php#unserialize-callback-func
  */
 ini_set('unserialize_callback_func', 'spl_autoload_call');
 
@@ -66,25 +48,25 @@ mb_substitute_character('none');
 // -- Configuration and initialization -----------------------------------------
 
 /**
- * Set the default language
- */
-I18n::lang('en-us');
-
-if (isset($_SERVER['SERVER_PROTOCOL']))
-{
-	// Replace the default protocol.
-	HTTP::$protocol = $_SERVER['SERVER_PROTOCOL'];
-}
-
-/**
- * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
+ * Set Kohana::$environment if a 'GLEEZ_ENV' environment variable has been supplied.
  *
- * Note: If you supply an invalid environment name, a PHP warning will be thrown
+ * [!!] Note: If you supply an invalid environment name, a PHP warning will be thrown
  * saying "Couldn't find constant Kohana::<INVALID_ENV_NAME>"
+ *
+ * @todo In the future Kohana::$environment should be moved to Gleez Core as Gleez::$environment
+ *
+ * @link https://github.com/gleez/cms/wiki/Apache
+ * @link https://github.com/gleez/cms/wiki/Nginx
  */
-if (isset($_SERVER['KOHANA_ENV']))
+if (isset($_SERVER['GLEEZ_ENV']))
 {
-	Kohana::$environment = constant('Kohana::'.strtoupper($_SERVER['KOHANA_ENV']));
+	// Get environment variable from $_SERVER, .htaccess, apache.conf, nginx.conf, etc.
+	Kohana::$environment = constant('Kohana::'.strtoupper($_SERVER['GLEEZ_ENV']));
+}
+else if (get_cfg_var('GLEEZ_ENV'))
+{
+	// Get environment variable from php.ini or from ini_get('user_ini.filename')
+	Kohana::$environment = constant('Kohana::'.strtoupper(get_cfg_var('GLEEZ_ENV')));
 }
 
 /**
@@ -96,20 +78,17 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - string   index_file  name of your index file, usually "index.php"       index.php
  * - string   charset     internal character set used for input and output   utf-8
  * - string   cache_dir   set the internal cache directory                   APPPATH/cache
- * - integer  cache_life  lifetime, in seconds, of items cached              60
  * - boolean  errors      enable or disable error handling                   TRUE
  * - boolean  profile     enable or disable internal profiling               TRUE
  * - boolean  caching     enable or disable internal caching                 FALSE
- * - boolean  expose      set the X-Powered-By header                        FALSE
+ * - boolean  autolocale  enable or disable autodetect locale                TRUE
  */
 Kohana::init(array(
-	'base_url'   => '/magdalene/',
+	'base_url'   => 'http://localhost/gleez',
+	'index_file' => FALSE,
+	'caching'    => Kohana::$environment === Kohana::PRODUCTION,
+	'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
 ));
-
-/**
- * Attach the file write to logging. Multiple writers are supported.
- */
-Kohana::$log->attach(new Log_File(APPPATH.'logs'));
 
 /**
  * Attach a file reader to config. Multiple readers are supported.
@@ -117,26 +96,61 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
 Kohana::$config->attach(new Config_File);
 
 /**
- * Enable modules. Modules are referenced by a relative or absolute path.
+ * Enable modules.
+ *
+ * Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(
-//	 'auth'       => MODPATH.'auth',       // Basic authentication
-//	 'cache'      => MODPATH.'cache',      // Caching with multiple backends
-//	 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
-//	 'database'   => MODPATH.'database',   // Database access
-//	 'image'      => MODPATH.'image',      // Image manipulation
-//	 'minion'     => MODPATH.'minion',     // CLI Tasks
-//	 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
-//	 'unittest'   => MODPATH.'unittest',   // Unit testing
-//	 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
-	));
+	'user'        => MODPATH.'user',       // User and group Administration
+	'database'    => MODPATH.'database',   // Database access
+	'image'       => MODPATH.'image',      // Image manipulation
+	'captcha'     => MODPATH.'captcha',    // Captcha implementation
+	//'minion'      => MODPATH.'minion',    // For running tasks via the CLI
+	//'unittest'    => MODPATH.'unittest',   // Unit testing
+	//'codebench'   => MODPATH.'codebench',  // Benchmarking tool
+	//'mango'       => MODPATH.'mango',      // Gleez Mango
+));
 
 /**
- * Set the routes. Each route must have a minimum of a name, a URI and a set of
- * defaults for the URI.
+ * Attach the file write to logging.
+ * Multiple writers are supported.
  */
-Route::set('default', '(<controller>(/<action>(/<id>)))')
-	->defaults(array(
-		'controller' => 'home',
-		'action'     => 'index',
-	));
+Kohana::$log->attach(new Log_File(APPPATH.'logs'));
+
+/**
+ * Default path for uploads directory.
+ * Path are referenced by a relative or absolute path.
+ */
+Upload::$default_directory = APPPATH.'uploads';
+
+/**
+ * Set the routes
+ *
+ * Each route must have a minimum of a name,
+ * a URI and a set of defaults for the URI.
+ *
+ * Example:
+ * ~~~
+ *	Route::set('frontend/page', 'page(/<action>)')
+ *		->defaults(array(
+ *			'controller' => 'page',
+ *			'action' => 'view',
+ *	));
+ * ~~~
+ *
+ * @uses  Path::lookup
+ * @uses  Route::cache
+ * @uses  Route::set
+ */
+if ( ! Route::cache())
+{
+	Route::set('default', '(<controller>(/<action>(/<id>)))')
+		->filter( 'Path::lookup' )
+		->defaults(array(
+			'controller' => 'welcome',
+			'action'     => 'index',
+		));
+
+	// Cache the routes in production
+	Route::cache(Kohana::$environment === Kohana::PRODUCTION);
+}

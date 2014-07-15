@@ -281,6 +281,7 @@ abstract class Template extends Controller {
 
 			$this->title_separator  = $this->_config->get('title_separator', ' | ');
 			$this->_widgets         = Widgets::instance();
+
 			$this->template->_admin = Theme::$is_admin;
 
 			// Set the destination & redirect url

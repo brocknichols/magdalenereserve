@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') OR die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct script access.');
 
 return array(
 	// Leave this alone
@@ -14,11 +14,10 @@ return array(
 			'name' => 'Kohana',
 
 			// A short description of this module, shown on the index page
-			'description' => 'Documentation for Kohana core/system.',
+			'description' => 'Documentation for Kohana core/system',
 
 			// Copyright message, shown in the footer for this module
 			'copyright' => '&copy; 2008–2012 Kohana Team',
-		),
-	),
-
+		)
+	)
 );

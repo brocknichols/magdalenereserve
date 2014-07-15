@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title><?php echo $title ?> | Kohana <?php echo 'User Guide'; ?></title>
+<title><?php echo $title ?> | Gleez CMS <?php echo 'User Guide'; ?></title>
 
 <?php foreach ($styles as $style => $media) echo HTML::style($style, array('media' => $media), NULL, TRUE), "\n" ?>
 
@@ -17,17 +17,17 @@
 
 	<div id="kodoc-header">
 		<div class="container">
-			<a href="http://kohanaframework.org/" id="kodoc-logo">
-				<img src="<?php echo Route::url('docs/media', array('file' => 'img/kohana.png')) ?>" />
+			<a href="http://gleezcms.org/" id="kodoc-logo">
+				<img src="<?php echo Route::url('docs/media', array('file' => 'img/gleez.png')) ?>" />
 			</a>
 			<div id="kodoc-menu">
 				<ul>
 					<li class="guide first">
-						<a href="<?php echo Route::url('docs/guide') ?>">User Guide</a>
+						<a href="<?php echo Route::url('docs/guide') ?>"><?php _e('User Guide')?></a>
 					</li>
 					<?php if (Kohana::$config->load('userguide.api_browser')): ?>
 					<li class="api">
-						<a href="<?php echo Route::url('docs/api') ?>">API Browser</a>
+						<a href="<?php echo Route::url('docs/api') ?>"><?php _e('API Browser')?></a>
 					</li>
 					<?php endif ?>
 				</ul>
@@ -85,7 +85,7 @@
 			<?php endif ?>
 			</div>
 			<div class="span-12 last right">
-			<p>Powered by <?php echo HTML::anchor('http://kohanaframework.org/', 'Kohana') ?> v<?php echo Kohana::VERSION ?></p>
+				<p><?php _e('Powered by :gleez', array(':gleez' => HTML::anchor('http://gleezcms.org/', 'Gleez CMS') )); ?>&nbsp;<?php echo Gleez::getVersion() ?></p>
 			</div>
 		</div>
 	</div>
