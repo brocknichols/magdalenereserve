@@ -76,7 +76,7 @@ class Controller_Blog extends Template {
 			$posts->where('status', '=', 'publish');
 		}
 
-		$this->title = __('Blogs');
+		$this->title = __('Neighbor Talk');
 		$this->schemaType = 'WebPage';
 
 		/**

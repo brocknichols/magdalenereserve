@@ -33,7 +33,7 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 	RewriteEngine On
 
 	# Installation directory
-	RewriteBase /
+	RewriteBase /magdalene
 
 	# Rewrite www.domain.com -> domain.com -- used with SEO Strict URLs plugin
 	# Please change domain.com and uncomment three bottom strings
@@ -53,7 +53,7 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 	# domain.com -> www.domain.com
 
 	RewriteCond %{THE_REQUEST} ^.*/index.php
-	RewriteRule ^(.*)index.php$ /$1 [R=301,L]
+	RewriteRule ^(.*)index.php$ /magdalene/$1 [R=301,L]
 
 	# Protect application and system files from being viewed
 	RewriteRule ^(?:application|modules|themes|system)\b.* index.php/$0 [L]

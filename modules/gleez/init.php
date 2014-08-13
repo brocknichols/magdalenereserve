@@ -268,7 +268,8 @@ if ( ! Route::cache())
 
 	Route::set('welcome', 'welcome(/<action>)(/<id>)')
 	->defaults(array(
-		'controller' => 'welcome'
+		'controller' => 'welcome',
+                'action'    => 'index',
 	));
 }
 

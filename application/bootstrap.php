@@ -95,7 +95,7 @@ if (isset($env))
  * - boolean  autolocale  enable or disable autodetect locale                TRUE
  */
 Kohana::init(array(
-	'base_url'   => '/',
+	'base_url'   => 'http://localhost:8000/magdalene/',
 	'index_file' => FALSE,
 	'caching'    => Kohana::$environment === Kohana::PRODUCTION,
 	'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
@@ -163,7 +163,6 @@ Upload::$default_directory = APPPATH.'uploads';
 if ( ! Route::cache())
 {
 	Route::set('default', '(<controller>(/<action>(/<id>)))')
-		->filter( 'Path::lookup' )
 		->defaults(array(
 			'controller' => 'welcome',
 			'action'     => 'index',
