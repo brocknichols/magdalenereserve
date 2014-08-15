@@ -13,7 +13,7 @@
 	<meta name="keywords" content="" />
 	<meta name="author" content="humans.txt">
 
-	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
         <?php echo HTML::style('media/css/gumbys.css', NULL, TRUE); ?>
@@ -35,7 +35,8 @@
 
   </h1>
 
-  <ul class="push_four six columns">
+<div class="nav_container">
+  <ul class="six columns right">
 
     <li>
 
@@ -66,9 +67,11 @@
     <li><a href="#">Local Savings</a></li>
 
     <li><a href="#">Contact</a></li>
+    
+   
 
   </ul>
-
+</div>
 </div>
 			<?php
 				$tpl = $is_admin ? 'admin' : 'welcome';
@@ -78,64 +81,36 @@
     <div class="row bottomrow">
     <div class="centered eight columns">
         <ul class="five_up tiles bottomul bottomulmain">
-
-                    <li>
-
-                        Community
-
-                    </li>
-
-                    <li>
-
-                        Calendar
-
-                    </li>
-
-                    <li>
-
-                        Real Estate
-
-                    </li>
-
-                    <li>
-
-                        Local Savings
-
-                    </li>
-
-                    <li>
-
-                        Contact
-
-                    </li>
-
-       </ul>
-
-        <ul class="one_up tiles bottomul bottomulsub">
-
             <li>
-
-                Neighborhood Newsletter
-
+                Community
             </li>
-
             <li>
-
-                Neighbor Talk
-
+                Calendar
             </li>
-
             <li>
-
-                HOA Resources
-
+                Real Estate
             </li>
-
+            <li>
+                Local Savings
+            </li>
+            <li>
+                Contact
+            </li>
         </ul>
-
+        <ul class="one_up tiles bottomul bottomulsub">
+            <li>
+                Neighborhood Newsletter
+            </li>
+            <li>
+                Neighbor Talk
+            </li>
+            <li>
+                HOA Resources
+            </li>
+        </ul>
     </div>
 
-  </div>
+    </div>
 
 
         <script type="text/javascript">

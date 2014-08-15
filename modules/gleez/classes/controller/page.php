@@ -162,7 +162,7 @@ class Controller_Page extends Template {
 
 		if (ACL::post('edit', $post))
 		{
-			$this->_tabs[] = array('link' => $post->url, 'text' => __('View'));
+			$this->_tabs[] = array('link' => $this->request->controller()."/".$this->request->action()."/".$post->id, 'text' => __('View'));
 			$this->_tabs[] = array('link' => $post->edit_url, 'text' => __('Edit'));
 		}
 
@@ -201,8 +201,9 @@ class Controller_Page extends Template {
 		$view = View::factory('page/post')
 				->set('title',             $this->title)
 				->set('page',              $post->content)
+                                ->set('attachment',        $post->image)
 				->bind('comments',         $comments)
-				->bind('comment_form',     $comment_form)
+                                ->bind('comment_form',     $comment_form)
 				->bind('provider_buttons', $provider_buttons);
 
 		$this->response->body($view);
@@ -372,7 +373,7 @@ class Controller_Page extends Template {
 		}
 
 		$this->_tabs =  array(
-			array('link' => $post->url, 'text' => __('View')),
+			array('link' => "/page/view/".$post->id, 'text' => __('View')),
 			array('link' => $post->edit_url, 'text' => __('Edit')),
 		);
 

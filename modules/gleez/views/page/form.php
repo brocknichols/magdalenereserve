@@ -32,9 +32,9 @@
 				</div>
 			<?php endif; ?>
 
-			<?php if ($config->primary_image): ?>
+			<?php if ($config->page_attachment): ?>
 				<div class="form-group <?php echo isset($errors['image']) ? 'has-error': ''; ?>">
-					<?php echo Form::label('image', __('Primary Image'), array('class' => 'control-label') ) ?>
+					<?php echo Form::label('image', __('Attach File'), array('class' => 'control-label') ) ?>
 					<div class="controls page-img">
 						<?php echo Form::file('image', array('class' => 'form-control')); ?>
 					</div>

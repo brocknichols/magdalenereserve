@@ -763,7 +763,7 @@ class Model_User extends ORM {
 		// Invalid confirmation token
 		if ($token !== Auth::instance()->hash($this->mail.'+'.$this->pass.'+'.(int)$this->login))
 			return FALSE;
-
+                
 		//send welcome mail
 		$this->welcome_mail();
 

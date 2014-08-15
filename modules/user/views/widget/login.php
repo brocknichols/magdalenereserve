@@ -29,7 +29,7 @@
 	</div>
 
 	<div class="form-group">
-		<?php echo Form::submit('login', __('Sign In'), array('class' => 'btn btn-primary btn-block')); ?>
+		<?php echo Form::submit('login', __('Sign In'), array('class' => 'btn info btn-block')); ?>
 	</div>
 
 	<div class="form-group">

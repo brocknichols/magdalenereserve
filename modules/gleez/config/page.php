@@ -100,4 +100,10 @@ return array(
 	 * @var boolean
 	 */
 	'primary_image' => TRUE,
+    
+    	/**
+	 * Use page attachment?
+	 * @var boolean
+	 */
+	'page_attachment' => TRUE,
 );

@@ -4,6 +4,7 @@
 
     <div class="row white_bg">
         <div class="inview faderow" gumby-classname="onscreen" gumby-offset="20">
+            <div class="container">
         <div class="two columns"></div>
         <div class="eight columns inner_content">        
                 Magdalene Reserve sits off of Fletcher Ave in the northwest part of the county. This small neighborhood is 
@@ -14,6 +15,7 @@
                 they have something special. That’s why many of them were attracted to the community.
             </div>
         <div class="two columns"><?php echo HTML::image('media/images/MR_Logo.jpg'); ?></div>
+            </div>
     </div>
     </div>
 
@@ -24,6 +26,7 @@
     
     <div class="row white_bg">
         <div class="inview faderow" gumby-classname="onscreen" gumby-offset="20">
+            <div class="container">
             <div class="two columns"><?php echo HTML::image('media/images/MR_Logo.jpg'); ?></div>
             <div class="ten columns inner_content">
              Magdalene Reserve is an award winning community featuring lush Florida friendly Xeriscape and lots of Green 
@@ -31,6 +34,7 @@
              52 single family homes.              
             </div>
             <div class="two columns"></div>
+            </div>
         </div>
     </div>
     
@@ -40,10 +44,12 @@
 
      <div class="row white_bg">
         <div class="inview faderow" gumby-classname="onscreen" gumby-offset="90">
+            <div class="container">
         <div class="two columns"></div>
         <div class="eight columns inner_content">        
         Magdalene Reserve is a quiet neighborhood of single family homes close to Carrollwood shopping, USF, airport and downtown. Many of the homes were originally built in the 1960's. This great location is close to I-275 so it is a quick hop around Tampa Bay.
             </div>
         <div class="two columns"><?php echo HTML::image('media/images/MR_Logo.jpg'); ?></div>
+            </div>
     </div>
     </div>

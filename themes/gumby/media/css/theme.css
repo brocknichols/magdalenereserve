@@ -130,7 +130,7 @@ a {
 .alert {
 	padding: 12px 2.5%;
 	position: relative;
-	z-index: 999;
+	z-index: 900;
 	font-weight: normal;
 	text-shadow: 0 1px 0 rgba(255,255,255,0.5);
 	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
@@ -235,7 +235,12 @@ a {
 -------------------------------------------------------------------*/
 
 .frontend #content {
-	margin-bottom: 20px;
+	margin: 20px 0px;
+}
+.content_wrapper {
+        min-height:100%;
+        position:relative;
+        padding-bottom:85px;
 }
 
 #content.with-tabs .post-page-wrapper {

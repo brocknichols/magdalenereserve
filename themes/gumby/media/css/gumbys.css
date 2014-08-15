@@ -1289,7 +1289,7 @@ img { -ms-interpolation-mode: bicubic; }
 .navcontain { height: 80px; }
 @media only screen and (max-width: 768px) { .navcontain { height: auto; } }
 
-.pretty.navbar { background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7b8085), color-stop(100%, #313436)); background-image: -webkit-linear-gradient(#7b8085, #313436); background-image: -moz-linear-gradient(#7b8085, #313436); background-image: -o-linear-gradient(#7b8085, #313436); background-image: linear-gradient(#7b8085, #313436); -webkit-box-shadow: inset 0 1px 1px #7b8085, 0 1px 2px rgba(0, 0, 0, 0.8) !important; -moz-box-shadow: inset 0 1px 1px #7b8085, 0 1px 2px rgba(0, 0, 0, 0.8) !important; box-shadow: inset 0 1px 1px #7b8085, 0 1px 2px rgba(0, 0, 0, 0.8) !important; /* Remove this line if you dont want a dropshadow on your navigation*/ }
+.pretty.navbar { background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7b8085), color-stop(100%, #313436)); background-image: -webkit-linear-gradient(#7b8085, #313436); background-image: -moz-linear-gradient(#7b8085, #313436); background-image: -o-linear-gradient(#7b8085, #313436); background-image: linear-gradient(#7b8085, #313436); -webkit-box-shadow: inset 0 1px 1px #7b8085, 0 1px 2px rgba(0, 0, 0, 0.8) !important; -moz-box-shadow: inset 0 1px 1px #7b8085, 0 1px 2px rgba(0, 0, 0, 0.8) !important; box-shadow: inset 0 1px 1px #7b8085, 0 1px 2px rgba(0, 0, 0, 0.8) !important; padding:0 20px; /* Remove this line if you dont want a dropshadow on your navigation*/ }
 @media only screen and (max-width: 767px) { .pretty.navbar a.toggle { border: 1px solid #3e4043; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7b8085), color-stop(100%, #4a4d50)); background-image: -webkit-linear-gradient(#7b8085, #4a4d50); background-image: -moz-linear-gradient(#7b8085, #4a4d50); background-image: -o-linear-gradient(#7b8085, #4a4d50); background-image: linear-gradient(#7b8085, #4a4d50); -webkit-box-shadow: inset 0 1px 2px #888d91, inset 0 -1px 1px #565a5d, inset 1px 0 1px #565a5d, inset -1px 0 1px #565a5d, 0 1px 1px #63676a; -moz-box-shadow: inset 0 1px 2px #888d91, inset 0 -1px 1px #565a5d, inset 1px 0 1px #565a5d, inset -1px 0 1px #565a5d, 0 1px 1px #63676a; box-shadow: inset 0 1px 2px #888d91, inset 0 -1px 1px #565a5d, inset 1px 0 1px #565a5d, inset -1px 0 1px #565a5d, 0 1px 1px #63676a; }
   .pretty.navbar a.toggle i { text-shadow: 0 1px 1px #191a1b; }
   .pretty.navbar a.toggle:hover { background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #888d91), color-stop(100%, #565a5d)); background-image: -webkit-linear-gradient(#888d91, #565a5d); background-image: -moz-linear-gradient(#888d91, #565a5d); background-image: -o-linear-gradient(#888d91, #565a5d); background-image: linear-gradient(#888d91, #565a5d); }
@@ -1386,7 +1386,7 @@ img { -ms-interpolation-mode: bicubic; }
 .btn.default:active, .skiplink.default:active { background: #d8d8d8; }
 .btn.default:hover, .skiplink.default:hover { border: 1px solid #e5e5e5; }
 .btn.default a, .btn.default input, .btn.default button, .skiplink.default a, .skiplink.default input, .skiplink.default button { color: #555555; }
-.btn.info, .skiplink.info { background: #4a4d50; border: 1px solid #4a4d50; }
+.btn.info, .skiplink.info { background: #4a4d50; border: 1px solid #4a4d50; color: #fff;}
 .btn.info:hover, .skiplink.info:hover { background: #63676a; }
 .btn.info:active, .skiplink.info:active { background: #313436; }
 .btn.danger, .skiplink.danger { background: #ca3838; border: 1px solid #ca3838; }
@@ -1767,4 +1767,36 @@ background-image: linear-gradient(#7b8085, #313436);
 box-shadow: inset 0 1px 1px #7b8085, 0 1px 2px rgba(0, 0, 0, 0.8) !important;
     color: #fff;
     font-size:10px;
+    height:85px;
+}
+.row.bottomrow.abs{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+}
+.row ul.right {
+    float:right;
+}
+.nav_container {
+    width:80%;
+    margin-left:auto;
+    margin-right:auto;
+}
+.dropdown-link {
+    text-align:left;
+}
+.dropdown-header.bg{
+    background: #F3F3F3;
+}
+.container {
+    width:80%;
+    margin: auto;
+}
+.denied_content {
+    background-image: url(../images/Stop.png);
+    background-repeat: no-repeat;
+    padding: 110px 0px 10px 270px;
+    height: 280px;
+    margin-top: 20px;
 }

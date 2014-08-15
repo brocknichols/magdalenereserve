@@ -6,13 +6,13 @@ return array(
 	 * Site name
 	 * @var string
 	 */
-	'site_name' => 'Gleez CMS',
+	'site_name' => 'Magdalene Reserve',
 
 	/**
 	 * Site slogan
 	 * @var string
 	 */
-	'site_slogan' => 'Light, Simple, Flexible Content Management System',
+	'site_slogan' => 'Magdalene Reserve',
 
 	/**
 	 * Site logo
@@ -30,13 +30,13 @@ return array(
 	 * Site email
 	 * @var string
 	 */
-	'site_email' => 'webmaster@gleezcms.org',
+	'site_email' => 'admin@magdalenereserve.com',
 
 	/**
 	 * Site url used for background tasks
 	 * @var string
 	 */
-	'site_url' => 'www.gleezcms.org',
+	'site_url' => 'www.magdalenereserve.com',
 
 	/**
 	 * Site mission
@@ -48,13 +48,13 @@ return array(
 	 * Keywords for search engines
 	 * @var string
 	 */
-	'keywords' => 'cms, cmf, gleez, kohana, php framework, site building',
+	'keywords' => 'Magdalene Reserve',
 
 	/**
 	 * Description for search engines
 	 * @var string
 	 */
-	'description' => 'Light, Simple, Flexible Content Management System',
+	'description' => 'Magdalene Reserve',
 
 	/**
 	 * Site title separator
@@ -141,7 +141,7 @@ return array(
 	 * @var array
 	 */
 	'headers' => array(
-		'X-Powered-By' => 'Gleez CMS (http://gleezcms.org)',
+		'X-Powered-By' => 'Brock Nichols',
 	),
 
 	/**
@@ -175,18 +175,18 @@ return array(
 			URL::site('rss', TRUE) => array(
 				'rel'   => 'alternate',
 				'type'  => 'application/rss+xml',
-				'title' => 'Gleez RSS 2.0'
+				'title' => 'Magdalene Reserve RSS'
 			),
 			URL::site('', TRUE) => array(
 				'rel'   => 'index',
-				'title' => 'Gleez CMS'
+				'title' => 'Magdalene Reserve'
 			),
 		),
 		'tags' => array(
 			'charset'    => Kohana::$charset,
 			'generator'  => 'Gleez '.Gleez::VERSION.' (http://gleezcms.org)',
-			'author'     => 'Gleez Team',
-			'copyright'  => 'Copyright (c) Gleez Technologies 2011-2014. All rights reserved.',
+			'author'     => 'Brock Nichols',
+			'copyright'  => 'Copyright (c) Magdalene Reserve',
 			'robots'     => 'index, follow, noodp',
 			'viewport'   => 'width=device-width, initial-scale=1.0',
 		),

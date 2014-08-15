@@ -160,7 +160,7 @@ class Controller_Blog extends Template {
 
 		if (ACL::post('edit', $post))
 		{
-			$this->_tabs[] = array('link' => $post->url, 'text' => __('View'));
+			$this->_tabs[] = array('link' => "/blog/view/".$post->id, 'text' => __('View'));
 			$this->_tabs[] = array('link' => $post->edit_url, 'text' => __('Edit'));
 		}
 
@@ -370,7 +370,7 @@ class Controller_Blog extends Template {
 				Log::info('Blog :title updated.', array(':title' => $post->title));
 				Message::success(__('Blog %title updated', array('%title' => $post->title)));
 
-				$this->request->redirect(empty($destination) ? $post->url : $this->request->query('destination'));
+				$this->request->redirect(empty($destination) ? "/blog/view/".$post->id : $this->request->query('destination'));
 			}
 			catch (ORM_Validation_Exception $e)
 			{
@@ -380,7 +380,7 @@ class Controller_Blog extends Template {
 		}
 
 		$this->_tabs =  array(
-			array('link' => $post->url, 'text' => __('View')),
+			array('link' => "/blog/view/".$post->id, 'text' => __('View')),
 			array('link' => $post->edit_url, 'text' => __('Edit')),
 		);
 

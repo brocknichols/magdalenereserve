@@ -1,10 +1,10 @@
-<?php
+<?php defined('SYSPATH') or die('No direct access allowed.');
 /**
  * An adaptation of handle path aliasing
  *
- * @package    Gleez\ORM\Path
+ * @package    Gleez\Path
  * @author     Sandeep Sangamreddi - Gleez
- * @copyright  (c) 2011-2014 Gleez Technologies
+ * @copyright  (c) 2011 Gleez Technologies
  * @license    http://gleezcms.org/license  Gleez CMS License
  */
 class Model_Path extends ORM {
@@ -141,13 +141,11 @@ class Model_Path extends ORM {
 
 	private function _unique_slug($str)
 	{
+		$path   = ORM::factory('path', array('alias' => $str));
 		$slug   = $str;
 		$suffix = 0;
-		
-		while( $path = ORM::factory('path', array('alias' => $str) )
-			AND $path->loaded()
-			AND $path->source != $this->source
-			)
+
+		while ($path AND $path->loaded() AND $path->source != $this->source )
 		{
 			$str = substr($slug, 0, 200 - (strlen($suffix) + 1)) . "-$suffix";
 			$suffix++;

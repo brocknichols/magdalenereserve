@@ -4,10 +4,11 @@
 	</div>
 </div>
 <?php foreach($posts as $i => $post): ?>
+
 	<article id="blog-<?php echo $post->id; ?>" class="blog-list <?php echo ($post->sticky) ? ' sticky' : ' blog-'.$post->status; ?>" itemscope itemtype="http://schema.org/Article">
 		<header>
 			<h2 class="post-title" itemprop="name">
-				<?php echo HTML::anchor($post->url, $post->title, array('itemprop' => 'url')); ?>
+				<?php echo HTML::anchor("/blog/view/".$post->id, $post->title, array('itemprop' => 'url')); ?>
 			</h2>
 		</header>
 

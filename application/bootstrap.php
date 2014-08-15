@@ -95,7 +95,7 @@ if (isset($env))
  * - boolean  autolocale  enable or disable autodetect locale                TRUE
  */
 Kohana::init(array(
-	'base_url'   => 'http://localhost:8000/magdalene/',
+	'base_url'   => '/',
 	'index_file' => FALSE,
 	'caching'    => Kohana::$environment === Kohana::PRODUCTION,
 	'profile'    => Kohana::$environment !== Kohana::PRODUCTION,
