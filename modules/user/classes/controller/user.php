@@ -117,8 +117,8 @@ class Controller_User extends Template {
 				// sign the user in
 				Auth::instance()->login($post->name, $post->pass);
 
-				Log::info('Account :title created successful.', array(':title' => $post->nick));
-				Message::success(__('Account %title created successful!', array('%title' => $post->nick)));
+				Log::info('Registration for account :title created successful.', array(':title' => $post->nick));
+				Message::success(__('Registration for account %title successful!', array('%title' => $post->nick)));
 
 				$this->request->redirect(Route::get('user')->uri(array('action' => 'profile')));
 			}

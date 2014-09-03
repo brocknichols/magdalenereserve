@@ -88,7 +88,7 @@ class Controller_Comment extends Template {
 				Log::info('Comment: :title updated.', array(':title' => $comment->title));
 				Message::success(__('Comment %title has been updated.', array('%title' => $comment->title)));
 
-				$this->request->redirect(empty($destination) ? $comment->url : $this->request->query('destination'));
+				$this->request->redirect(empty($destination) ? "/blog/view/".$id : $this->request->query('destination'));
 			}
 			catch (ORM_Validation_Exception $e)
 			{

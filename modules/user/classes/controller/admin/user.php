@@ -40,7 +40,7 @@ class Controller_Admin_User extends Controller_Admin {
 	public function action_list()
 	{
 		$is_datatables = Request::is_datatables();
-
+                
 		if ($is_datatables)
 		{
 			$users = ORM::factory('user');
@@ -238,7 +238,7 @@ class Controller_Admin_User extends Controller_Admin {
 					// you first have to remove the items, otherwise add() will try to add duplicates
 					// could also use array_diff, but this is much simpler
 					DB::delete('roles_users')->where('user_id', '=', $id)->execute();
-
+                                        
 					foreach(array_keys($_POST['roles']) as $role)
 					{
 						// add() executes the query immediately, and saves the data

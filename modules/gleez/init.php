@@ -7,8 +7,10 @@
  * @copyright  (c) 2011-2014 Gleez Technologies
  * @license    http://gleezcms.org/license Gleez CMS License
  */
+
 if ( ! Route::cache())
 {
+    
 // -- Gleez media routes -------------------------------------------------------
 
 	// Image resize
@@ -268,7 +270,8 @@ if ( ! Route::cache())
 
 	Route::set('welcome', 'welcome(/<action>)(/<id>)')
 	->defaults(array(
-		'controller' => 'welcome'
+		'controller' => 'welcome',
+                'action'    => 'index',
 	));
 }
 

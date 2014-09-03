@@ -3,6 +3,9 @@
 		<div class="post-page">
 			<?php echo $page; ?>
 		</div>
+    <div class="download_link">
+                        Attachment: <?php echo HTML::anchor($attachment, "/media".$attachment); ?>
+    </div>
 	<?php endif;?>
 </div>
 

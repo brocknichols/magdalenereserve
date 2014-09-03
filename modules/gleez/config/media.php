@@ -42,6 +42,11 @@ return array(
 		'jpeg',
 		'gif',
 		'png',
+                'pdf',
+                'doc',
+                'xls',
+                'csv'
+            
 	),
 
 	/**

@@ -276,7 +276,7 @@ class Post extends ORM_Versioned {
 		{
 			if (isset($_FILES['image']['name']) AND ! empty($_FILES['image']['name']))
 			{
-				$allowed_types = Config::get('media.supported_image_formats', array('jpg', 'png', 'gif'));
+				$allowed_types = Config::get('media.supported_image_formats', array('jpg', 'png', 'gif', '.pdf'));
 				$data = Validation::factory($_FILES)
 					->rule('image', 'Upload::not_empty')
 					->rule('image', 'Upload::valid')
@@ -323,10 +323,11 @@ class Post extends ORM_Versioned {
 
 			// generate a unique filename to avoid conflicts
 			$filename = File::getUnique($_FILES['image']['name']);
+                        $file_ext=new SplFileInfo($_FILES['image']['name']);
 
-			if ($file = Upload::save($_FILES['image'], $filename, $this->_image_path))
+			if ($file = Upload::save($_FILES['image'], $filename.".".$file_ext->getExtension(), $this->_image_path))
 			{
-				$this->image = $filename;
+				$this->image = $filename.".".$file_ext->getExtension();
 			}
 		}
 	}

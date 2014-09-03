@@ -76,7 +76,7 @@ class Controller_Blog extends Template {
 			$posts->where('status', '=', 'publish');
 		}
 
-		$this->title = __('Blogs');
+		$this->title = __('Neighbor Talk');
 		$this->schemaType = 'WebPage';
 
 		/**
@@ -160,7 +160,7 @@ class Controller_Blog extends Template {
 
 		if (ACL::post('edit', $post))
 		{
-			$this->_tabs[] = array('link' => $post->url, 'text' => __('View'));
+			$this->_tabs[] = array('link' => "/blog/view/".$post->id, 'text' => __('View'));
 			$this->_tabs[] = array('link' => $post->edit_url, 'text' => __('Edit'));
 		}
 
@@ -197,10 +197,10 @@ class Controller_Blog extends Template {
 
 		$this->title = $post->title;
 		$this->schemaType = 'Article';
-
 		$view = View::factory('blog/post')
 			->set('title',             $this->title)
 			->set('blog',              $post->content)
+                        ->set('image',             $post->image)
 			->bind('comments',         $comments)
 			->bind('comment_form',     $comment_form)
 			->bind('provider_buttons', $provider_buttons);
@@ -370,7 +370,7 @@ class Controller_Blog extends Template {
 				Log::info('Blog :title updated.', array(':title' => $post->title));
 				Message::success(__('Blog %title updated', array('%title' => $post->title)));
 
-				$this->request->redirect(empty($destination) ? $post->url : $this->request->query('destination'));
+				$this->request->redirect(empty($destination) ? "/blog/view/".$post->id : $this->request->query('destination'));
 			}
 			catch (ORM_Validation_Exception $e)
 			{
@@ -380,7 +380,7 @@ class Controller_Blog extends Template {
 		}
 
 		$this->_tabs =  array(
-			array('link' => $post->url, 'text' => __('View')),
+			array('link' => "/blog/view/".$post->id, 'text' => __('View')),
 			array('link' => $post->edit_url, 'text' => __('Edit')),
 		);
 
