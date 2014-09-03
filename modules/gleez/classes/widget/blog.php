@@ -53,13 +53,14 @@ class Widget_Blog extends Widget {
 		$cache = Cache::instance('widgets');
 		$view  = View::factory('widgets/blog/list')->bind('items', $items);
 
-		if ( ! $items = $cache->get('recent_blogs'))
-		{
+//		if ( ! $items = $cache->get('recent_blogs'))
+//		{
 			$blogs = ORM::factory('blog')->order_by('created', 'DESC')->limit(10)->find_all();
 
 			$items = array();
 			foreach($blogs as $blog)
 			{
+
 				$items[$blog->id]['id']       = $blog->id;
 				$items[$blog->id]['title']    = $blog->title;
 				$items[$blog->id]['url']      = $blog->url;
@@ -71,7 +72,7 @@ class Widget_Blog extends Widget {
 
 			// Set the cache
 			$cache->set('recent_blogs', $items, DATE::HOUR);
-		}
+//		}
 
 		return $view->render();
 	}

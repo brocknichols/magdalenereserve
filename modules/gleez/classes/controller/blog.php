@@ -197,10 +197,10 @@ class Controller_Blog extends Template {
 
 		$this->title = $post->title;
 		$this->schemaType = 'Article';
-
 		$view = View::factory('blog/post')
 			->set('title',             $this->title)
 			->set('blog',              $post->content)
+                        ->set('image',             $post->image)
 			->bind('comments',         $comments)
 			->bind('comment_form',     $comment_form)
 			->bind('provider_buttons', $provider_buttons);

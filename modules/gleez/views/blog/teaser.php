@@ -16,7 +16,7 @@
 		</div>
 	<?php endif;?>
 
-	<div class="blog-content"> <?php echo $post->teaser; ?> </div>
+    <div class="blog-content"> <?php echo $post->teaser; ?><br><?php if(isset($post->image)): ?><img src="<?php echo $post->image; ?>"><?php endif; ?></div>
 
 	<?php if ($post->tagcloud): ?>
 		<div class="tagcloud"><?php echo __('Tagged with :tag', array(':tag' => $post->tagcloud) ); ?></div>

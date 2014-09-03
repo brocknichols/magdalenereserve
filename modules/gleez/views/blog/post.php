@@ -2,6 +2,11 @@
 	<?php if (isset($blog)): ?>
 		<div class="blog-page">
 			<?php echo $blog; ?>
+                   
+                    <?php if(isset($image)): ?>
+                     <br>
+                     <img src="<?php echo URL::base(TRUE, TRUE)."/".$image; ?>">
+                     <?php endif; ?>
 		</div>
 	<?php endif;?>
 </div>

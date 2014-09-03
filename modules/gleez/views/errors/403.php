@@ -1,3 +1,4 @@
+
 <!doctype html>
 
 <!--[if gt IE 9]><!--> <html class="no-js" lang="en" itemscope itemtype="http://schema.org/Product"> <!--<![endif]-->
@@ -75,14 +76,13 @@
   </ul>
 </div>
 </div>
+    		<div class="denied_content">
+                            <?php echo __("You're not authorized to access <span>:url</span>!<br>You must sign in or register to view this page.", array(':url' => Text::plain($url))) ?>
+                </div>
     <div class="container">
         	<div class="row">
 
 <div class="col-md-12 page-container">
-
-		<div class="denied_content">
-                            <?php echo __("You're not authorized to access <span>(:url)</span> page!<br>You must sign in or register to view this page.", array(':url' => Text::plain($url))) ?>
-                                    </div>
 
                   <?php  
                     		// Create form action
