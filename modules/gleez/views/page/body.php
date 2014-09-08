@@ -1,3 +1,12 @@
+<style>
+    .nav-pills>li>a { 
+    color: #FFF;
+    background-color: #428BCA;
+    }
+    .nav-pills>li>a:hover{
+       background-color: #DB9999
+    }
+</style>
 <div id="post-<?php echo $post->id; ?>" class="<?php echo $post->type ?> post<?php if ($post->sticky) { echo ' sticky'; } ?> <?php echo ' post-'. $post->status;  ?>">
 
         <?php
@@ -17,15 +26,18 @@
 				</div>
 			<?php endif;?>
 	
-			<?php if ($post->taxonomy): ?> <div class="taxonomy col-md-5 pull-right"> <?php echo $post->taxonomy; ?> </div> <?php endif;?>
+			<?php if ($post->taxonomy): ?> <div class="taxonomy col-md-5 pull-right"> <?php echo $post->taxonomy; ?> 
+                        <?php if ($post->tagcloud): ?>
+                            <ul class="tagcloud pull-right" style="clear:both;"><?php echo __(':tag', array(':tag' => $post->tagcloud) ); ?></ul>
+                        <?php endif;?>
+                        </div> <?php endif;?>
+
+                        
 		</div>
 	<?php endif;?>
 
 	<div class="content"> <?php echo $post->body; ?> </div>
 
-	<?php if ($post->tagcloud): ?>
-	    <div class="tagcloud"><?php echo __('Tagged with :tag', array(':tag' => $post->tagcloud) ); ?></div>
-	<?php endif;?>
 
 	<?php if($widget_p_bot): ?>
 		<div id="post-bottom" class="clear-block"> <?php echo $widget_p_bot; ?> </div>

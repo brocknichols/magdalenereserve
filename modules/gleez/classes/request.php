@@ -977,11 +977,23 @@ class Request implements HTTP_Request {
 				$this->_action = Route::$default_action;
 			}
 
+                        $ignore_defaults=array('add','view');
+
+                        if($params['controller']=='page' && isset($params['id']) && !is_int($params['id']) && !in_array($params['action'], $ignore_defaults)){
+                            Path::load(array('alias'=>'pages/'.$params['id']));
+                        }
+                        if($params['controller']=='blog' && isset($params['id']) && !is_int($params['id'])  && !in_array($params['action'], $ignore_defaults)){
+                            Path::load(array('alias'=>'blogs/'.$params['id']));
+                        }
+                        
 			// These are accessible as public vars and can be overloaded
 			unset($params['controller'], $params['action'], $params['directory']);
 
 			// Params cannot be changed once matched
+                        
 			$this->_params = $params;
+                        
+                        
 
 			// Apply the client
 			$this->_client = new Request_Client_Internal(array('cache' => $cache));
@@ -1329,7 +1341,6 @@ class Request implements HTTP_Request {
 				':uri' => $this->_uri,
 			));
 		}
-
 		return $this->_client->execute($this);
 	}
 

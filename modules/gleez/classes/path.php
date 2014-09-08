@@ -174,8 +174,9 @@ class Path {
 			{
 				return FALSE;
 			}
-
+                        
 			$path = $path->execute()->current();
+                        
 		}
 		catch(Exception $e)
 		{

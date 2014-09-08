@@ -21,6 +21,16 @@
         <?php echo HTML::style('media/css/user.css', NULL, TRUE); ?>
         <?php echo HTML::style('media/css/gumbys.css', NULL, TRUE); ?>
 	<?php echo HTML::script('media/js/libs/modernizr-2.6.2.min.js', NULL, TRUE); ?>
+        <style>
+            .content_wrapper{
+                min-height: 100%;
+                position: relative;
+                padding-bottom: 85px;
+            }
+            table tr td, table tbody tr td{
+                font-size:10px !important;
+            }
+        </style>
 </head>
 <body>
 
@@ -30,7 +40,7 @@
 
   <h1 class="one columns logo">
 
-    <a href="#">
+    <a href="<?php echo URL::site(); ?>">
 
       <?php echo HTML::image('media/images/MR_Logo_small.png',array('gumby-retina'=>'')); ?>
 
@@ -49,11 +59,9 @@
 
         <ul>
 
-          <li><a href="#">Neighborhood Newsletter</a></li>
+          <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">Neighbor Talk</a></li>
 
-          <li><a href="blog">Neighbor Talk</a></li>
-
-          <li><a href="#">HOA Minutes</a></li>
+          <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
           <li><a href="#">Resources</a></li>
 
@@ -63,23 +71,26 @@
 
     </li>
 
-    <li><a href="#">Calendar</a></li>
+    <li><a href="<?php echo URL::site('/calendar');?>">Calendar</a></li>
 
     <li><a href="#">Real Estate</a></li>
 
     <li><a href="#">Local Savings</a></li>
 
-    <li><a href="#">Contact</a></li>
+    <li><a href="<?php echo URL::site('/contact');?>">Contact</a></li>
     
    
 
   </ul>
 </div>
 </div>
-    		<div class="denied_content">
+    <div class="content_wrapper">
+    		
+        <main id="content" class="frontend-main" role="main">
+    <div class="container">
+        <div class="row denied_content">
                             <?php echo __("You're not authorized to access <span>:url</span>!<br>You must sign in or register to view this page.", array(':url' => Text::plain($url))) ?>
                 </div>
-    <div class="container">
         	<div class="row">
 
 <div class="col-md-12 page-container">
@@ -104,6 +115,8 @@
 	</div>
                 </div>
     </div>
+        </main>
+    
     <div class="row bottomrow abs">
     <div class="centered eight columns">
         <ul class="five_up tiles bottomul bottomulmain">
@@ -124,20 +137,14 @@
             </li>
         </ul>
         <ul class="one_up tiles bottomul bottomulsub">
-            <li>
-                Neighborhood Newsletter
-            </li>
-            <li>
-                Neighbor Talk
-            </li>
-            <li>
-                HOA Resources
-            </li>
+                <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
+                <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
+            <li><a href="#">Resources</a></li>
         </ul>
     </div>
 
     </div>
-
+    </div>
 
         <script type="text/javascript">
 

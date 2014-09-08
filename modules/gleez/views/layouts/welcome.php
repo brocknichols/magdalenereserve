@@ -46,11 +46,10 @@
 
         <ul>
 
-          <li><a href="#">Neighborhood Newsletter</a></li>
 
-          <li><a href="blog">Neighbor Talk</a></li>
+          <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
 
-          <li><a href="#">HOA Minutes</a></li>
+          <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
           <li><a href="#">Resources</a></li>
 
@@ -60,7 +59,7 @@
 
     </li>
 
-    <li><a href="#">Calendar</a></li>
+    <li><a href="<?php echo URL::site('/calendar');?>">Calendar</a></li>
 
     <li><a href="#">Real Estate</a></li>
 
@@ -98,15 +97,9 @@
             </li>
         </ul>
         <ul class="one_up tiles bottomul bottomulsub">
-            <li>
-                Neighborhood Newsletter
-            </li>
-            <li>
-                Neighbor Talk
-            </li>
-            <li>
-                HOA Resources
-            </li>
+                <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
+                <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
+            <li><a href="#">Resources</a></li>
         </ul>
     </div>
 

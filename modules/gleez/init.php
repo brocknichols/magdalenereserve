@@ -273,6 +273,23 @@ if ( ! Route::cache())
 		'controller' => 'welcome',
                 'action'    => 'index',
 	));
+        
+        Route::set('pages', 'pages(/<id>)')
+		->defaults(array(
+			'controller' => 'page',
+			'action'     => 'view',
+		));
+        Route::set('blogs', 'blogs(/<id>)')
+		->defaults(array(
+			'controller' => 'blog',
+			'action'     => 'view',
+		));
+        Route::set('tag', 'tags(/<id>)')
+		->defaults(array(
+			'controller' => 'tag',
+			'action'     => 'view',
+		));
+        
 }
 
 /**

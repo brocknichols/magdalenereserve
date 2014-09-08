@@ -45,7 +45,8 @@ return array(
                 'pdf',
                 'doc',
                 'xls',
-                'csv'
+                'csv',
+                'docx'
             
 	),
 

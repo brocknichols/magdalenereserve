@@ -24,5 +24,10 @@
 	<?php endforeach; ?>
 
 </div>
+<script type="text/javascript">
+    jQuery(document).ready(function(){ 
+    jQuery('article:odd').css('background-color', '#FAFAFA');
+    });
 
+</script>
 <?php echo $pagination; ?>

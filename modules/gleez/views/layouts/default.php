@@ -18,6 +18,7 @@
 	<!--[if gt IE 9]>
 		<?php echo HTML::script('media/css/ie-gte-9.css', NULL, TRUE); ?>
 	<![endif]-->
+        <?php echo Assets::js(FALSE); ?>
 </head>
 <body id="<?php echo $page_id; ?>" class="<?php echo $page_class; ?>" <?php echo $schemaType ? 'itemscope itemtype="http://schema.org/'.$schemaType.'"' : ''?>>
 
@@ -47,11 +48,9 @@
 
         <ul>
 
-          <li><a href="#">Neighborhood Newsletter</a></li>
-
           <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
 
-          <li><a href="#">HOA Minutes</a></li>
+          <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
           <li><a href="#">Resources</a></li>
 
@@ -61,13 +60,13 @@
 
     </li>
 
-    <li><a href="#">Calendar</a></li>
+    <li><a href="<?php echo URL::site('/calendar');?>">Calendar</a></li>
 
     <li><a href="#">Real Estate</a></li>
 
     <li><a href="#">Local Savings</a></li>
 
-    <li><a href="#">Contact</a></li>
+    <li><a href="<?php echo URL::site('/contact');?>">Contact</a></li>
     
     <?php if (User::is_guest()): ?>
 						<li><a href="<?php echo URL::site('/user/login'); ?>"><i class="fa fa-fw fa-white fa-chevron-left"></i><?php echo __('Sign In') ?></a></li>
@@ -131,15 +130,9 @@
             </li>
         </ul>
         <ul class="one_up tiles bottomul bottomulsub">
-            <li>
-                Neighborhood Newsletter
-            </li>
-            <li>
-                Neighbor Talk
-            </li>
-            <li>
-                HOA Resources
-            </li>
+                <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
+                <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
+            <li><a href="#">Resources</a></li>
         </ul>
     </div>
 
@@ -147,7 +140,24 @@
 	<!-- ########## Footer end ########## -->
 </div>
 
-	<?php echo Assets::js(FALSE); ?>
+    <script type='text/javascript'>
+        if(jQuery('.alert').length>0){
+            jQuery('.alert').delay(4000).fadeOut();
+        }
+        
+    jQuery('.openit').on('click', function(){
+        jQuery(this).parent().parent().find('.panel-body').slideDown('slow');
+        if(jQuery(this).parent().parent().hasClass('widget-calendar-widget')){
+        jQuery('#calendararea').empty();
+        loadCalendar();
+    }
+    })
+    
+    jQuery('.closeit').on('click', function(){
+        jQuery(this).parent().parent().find('.panel-body').slideUp('slow');
+    })
+    
+   </script>
 	<?php echo Assets::codes(FALSE); ?>
         <?php echo HTML::script('media/js/libs/gumby.js', NULL, TRUE); ?>
         <?php echo HTML::script('media/js/libs/ui/gumby.navbar.js', NULL, TRUE); ?>

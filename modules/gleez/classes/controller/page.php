@@ -19,6 +19,7 @@ class Controller_Page extends Template {
 	 */
 	public function before()
 	{
+
 		$id = $this->request->param('id', FALSE);
 
 		if ($id AND $this->request->action() == 'index')
@@ -149,7 +150,34 @@ class Controller_Page extends Template {
 	 */
 	public function action_view()
 	{
+
+            if(!is_int($this->request->param('id'))){
+
+                // if id=0 check for alias id
+               switch($this->request->controller()){
+                    case 'page':
+                        $alias='pages';
+                        break;
+                    default:
+                        $alias=$this->request->controller();
+                        break;
+                }
+
+                $get_id = DB::select('route_id', 'route_action')->from('paths')->where('alias','=',$alias."/".$this->request->param('id'))->execute()->current();
+                
+                if(!empty($get_id['route_id'])){
+                    if($get_id['route_action']=='term'){
+                        $this->request->redirect('page/term/'.$get_id['route_id']);
+                        return;
+                    }
+                    $id=$get_id['route_id'];
+                } else {
+                    $id     = (int) $this->request->param('id', 0);
+                }
+            } else {
 		$id     = (int) $this->request->param('id', 0);
+            }
+
 		$config = Config::load('page');
 
 		$post = Post::dcache($id, 'page', $config);
@@ -201,7 +229,7 @@ class Controller_Page extends Template {
 		$view = View::factory('page/post')
 				->set('title',             $this->title)
 				->set('page',              $post->content)
-                                ->set('attachment',        $post->image)
+                                ->set('attachment',        array('url'=>$post->image, 'rawimage'=>$post->__get('rawimage')))
 				->bind('comments',         $comments)
                                 ->bind('comment_form',     $comment_form)
 				->bind('provider_buttons', $provider_buttons);

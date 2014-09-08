@@ -2,9 +2,10 @@
   	<?php if ($widget->show_title): ?>
 		<div class="panel-heading">
 			<h3 class="panel-title"><i class="fa <?php echo Text::plain($widget->icon); ?>"></i> <?php echo Text::plain($title); ?></h3>
+                        <a class="openit">open</a> <a class="closeit">close</a>
 		</div>
   	<?php endif; ?>
-	<div class="panel-body">
+	<div class="panel-body" style="display:none;">
 		<?php echo $content; ?>
 	</div>
 </div>

@@ -160,6 +160,7 @@ Upload::$default_directory = APPPATH.'uploads';
  * @uses  Route::cache
  * @uses  Route::set
  */
+
 if ( ! Route::cache())
 {
 	Route::set('default', '(<controller>(/<action>(/<id>)))')

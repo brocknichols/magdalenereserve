@@ -42,7 +42,7 @@ class Controller_Contact extends Template {
 	 */
 	public function action_mail()
 	{
-		$this->title = __('Contact us');
+		$this->title = __('Contact');
 
 		$config = Config::load('contact');
 
@@ -82,7 +82,9 @@ class Controller_Contact extends Template {
 
 		if ($this->valid_post('contact'))
 		{
+
 			$post = Validation_Contact::factory($this->request->post());
+                        
 
 			if ($post->check())
 			{
@@ -101,7 +103,7 @@ class Controller_Contact extends Template {
 
 				// Create an email message
 				$email = Email::factory()
-						->to(Text::plain($this->_config->get('site_email', 'webmaster@gleezcms.org')), __('Webmaster :site', array(':site' => Template::getSiteName())))
+						->to(Text::plain($this->_config->get('site_email', 'admin@magdalenereserve.com')), __('Webmaster :site', array(':site' => Template::getSiteName())))
 						->subject($subject)
 						->from($post['email'], Text::plain($post['name']))
 						->message($body, 'text/html'); // @todo message type should be configurable

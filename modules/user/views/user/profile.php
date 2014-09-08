@@ -7,10 +7,7 @@
 				</div>
 
 				<div class="list-group">
-					<a href="javascript:;" class="list-group-item">
-						<i class="fa fa-fw fa-asterisk"></i> <?php echo __('Activity Feed'); ?>
-						<i class="fa fa-chevron-right list-group-chevron"></i>
-					</a>
+
 					<?php
 						if ($is_owner)
 						{

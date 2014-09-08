@@ -42,7 +42,28 @@ class Controller_Tag extends Template {
 	 */
 	public function action_view()
 	{
-		$id = (int) $this->request->param('id', 0);
+            if(!is_int($this->request->param('id'))){
+                // if id=0 check for alias id
+               switch($this->request->controller()){
+                    case 'tags':
+                    case 'tag':
+                        $alias='tags';
+                        break;
+                    default:
+                        $alias=$this->request->controller();
+                        break;
+                }
+                $get_id = DB::select('id')->from('tags')->where('name','=',$this->request->param('id'))->execute()->current();
+                if(!empty($get_id['id'])){
+                    $id=$get_id['id'];
+                } else {
+                    $id     = (int) $this->request->param('id', 0);
+                }
+            } else {
+		$id     = (int) $this->request->param('id', 0);
+            }
+            
+
 		$tag = ORM::factory('tag', $id);
 
 		if ( ! $tag->loaded())

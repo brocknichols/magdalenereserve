@@ -1,3 +1,9 @@
+<script type="text/javascript">
+    jQuery(document).ready(function(){ 
+    jQuery('article:odd').css('background-color', '#FAFAFA');
+    });
+
+</script>
 <div class="row">
 	<div class="col-md-1 pull-right">
 		<?php echo HTML::icon($rss_link, 'fa-rss', array('title' => 'RSS 2.0', 'class' => 'post-rss')) ?>

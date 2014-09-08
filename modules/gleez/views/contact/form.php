@@ -24,7 +24,13 @@
 			<div class="col-sm-9">
 				<div class="row">
 					<div class="input-group col-sm-8">
-						<?php echo Form::input('email', $user->mail, array('class' => 'form-control')) ?>
+						<?php 
+                                                if($user->mail!='guest@example.com'){
+                                                echo Form::input('email', $user->mail, array('class' => 'form-control'));
+                                                } else {
+                                                echo Form::input('email', null, array('class' => 'form-control', 'placeholder'=>$user->mail));
+                                                }
+                                                        ?>
 					</div>
 				</div>
 			</div>

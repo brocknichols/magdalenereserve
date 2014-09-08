@@ -63,4 +63,9 @@ class Widget_Admin extends Widget {
 	{
 		return View::factory('widgets/systeminfo')->render();
 	}
+        
+        public function calendar()
+	{
+		return View::factory('calendar/view')->render();
+	}
 }

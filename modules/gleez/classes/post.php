@@ -276,7 +276,7 @@ class Post extends ORM_Versioned {
 		{
 			if (isset($_FILES['image']['name']) AND ! empty($_FILES['image']['name']))
 			{
-				$allowed_types = Config::get('media.supported_image_formats', array('jpg', 'png', 'gif', '.pdf'));
+				$allowed_types = Config::get('media.supported_image_formats', array('jpg', 'png', 'gif', 'pdf', 'doc', 'xls', 'docx'));
 				$data = Validation::factory($_FILES)
 					->rule('image', 'Upload::not_empty')
 					->rule('image', 'Upload::valid')

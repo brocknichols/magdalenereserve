@@ -38,6 +38,7 @@
 	<!-- <link rel="stylesheet" href="css/style.css"> -->
 
 	<script src="<?php url::base(); ?>/gumby/js/libs/modernizr-2.6.2.min.js"></script>
+        <?php echo Assets::js(FALSE); ?>
 
 </head>
 
@@ -56,7 +57,7 @@
         <ul>
           <li><a href="#">Neighborhood Newsletter</a></li>
           <li><a href="blog">Neighbor Talk</a></li>
-          <li><a href="#">HOA Minutes</a></li>
+          <li><a href="tags/minutes">HOA Minutes</a></li>
           <li><a href="#">Resources</a></li>
         </ul>
       </div>
@@ -106,7 +107,7 @@
     </div>
   </div>
 
-		<?php echo Assets::js(FALSE); ?>
+		
 		<?php echo Assets::codes(FALSE); ?>
 		<?php echo $profiler; ?>
     

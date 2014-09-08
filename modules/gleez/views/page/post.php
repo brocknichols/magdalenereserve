@@ -4,7 +4,7 @@
 			<?php echo $page; ?>
 		</div>
     <div class="download_link">
-                        Attachment: <?php echo HTML::anchor($attachment, "/media".$attachment); ?>
+                        Attachment: <?php echo HTML::anchor($attachment['url'], $attachment['rawimage']); ?>
     </div>
 	<?php endif;?>
 </div>

@@ -14,14 +14,14 @@
 				</div>
 			</div>
 
-			<?php if (ACL::check('administer content') OR ACL::check('administer page')) : ?>
-				<div class="form-group <?php echo isset($errors['slug']) ? 'has-error': ''; ?>">
-					<?php echo Form::label('path', __('Permalink: %slug', array('%slug' => $site_url )), array('class' => 'control-label')) ?>
+			<?php // if (ACL::check('administer content') OR ACL::check('administer page')) : ?>
+<!--				<div class="form-group <?php // echo isset($errors['slug']) ? 'has-error': ''; ?>">
+					<?php // echo Form::label('path', __('Permalink: %slug', array('%slug' => $site_url )), array('class' => 'control-label')) ?>
 					<div class="controls">
-						<?php echo Form::input('path', $path, array('class' => 'form-control slug')); ?>
+						<?php // echo Form::input('path', $path, array('class' => 'form-control slug')); ?>
 					</div>
-				</div>
-			<?php endif; ?>
+				</div>-->
+			<?php // endif; ?>
 
 			<?php if ($config->use_tags) : ?>
 				<div class="form-group <?php echo isset($errors['ftags']) ? 'has-error': ''; ?>">
