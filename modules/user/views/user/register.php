@@ -100,13 +100,13 @@
 	<div class="panel panel-default window-shadow">
 		<div class="panel-heading">
 			<h3 class="panel-title">
-				<?php _e('Already have an account? Choose how you would like to sign in') ?>
+				<?php _e('Already have an account?') ?>
 			</h3>
 		</div>
 		<div class="panel-body">
 			<div class="form-group oauth-buttons">
 				<?php
-					_e('You can sign in from any of the following services:');
+					_e('Please sign in using :');
 
 					$providers = Auth::providers();
 
@@ -119,7 +119,7 @@
 				?>
 			</div>
 			<p class="help-signin">
-				<?php _e("If you don't use any of these services, you can create an account.") ?>
+				<?php _e("If you don't already have an account, you can create one.") ?>
 				<?php _e('Fast, safe & secure way!') ?>
 			</p>
 		</div>

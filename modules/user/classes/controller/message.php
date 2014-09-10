@@ -162,9 +162,23 @@ class Controller_Message extends Template {
 	public function action_view()
 	{
 		$this->title = __('View Message');
+                
+                ;
+                
+                $id = (int) $this->request->param('id', 0);
+                
+                $message=ORM::factory('message', $id)->getOne();
+                
+                if($message->recipient==Auth::instance()->get_user()->id){
+                $message->status='read';
+                $message->save();
 
-		$view = View::factory('message/view');
-
+		$view = View::factory('message/view')
+                        ->set('message', $message);
+                } else {
+                $view = View::factory('message/unauthorized');
+                }
+                
 		$this->response->body($view);
 	}
 
@@ -183,6 +197,12 @@ class Controller_Message extends Template {
 	public function action_compose()
 	{
 		$this->title = __('New Message');
+                $id = (int) $this->request->param('id', 0);
+                
+                //get username 
+                $touser=User::lookup($id);
+                
+                $recipient=isset($touser->name) ? $touser->name : FALSE;
 
 		// Set form destination
 		$destination = ( ! is_null($this->request->query('destination'))) ? array('destination' => $this->request->query('destination')) : array();
@@ -194,7 +214,7 @@ class Controller_Message extends Template {
 				->bind('errors',     $this->_errors)
 				->set('destination', $destination)
 				->set('action',      $action)
-				->set('recipient',   FALSE);
+				->set('recipient',   $recipient);
 
 		$message = ORM::factory('message');
 

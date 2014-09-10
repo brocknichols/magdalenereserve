@@ -3,10 +3,10 @@
 	Assets::css('user', 'media/css/user.css', array('weight' => 2));
 ?>
 
-<div class="col-sm-4 col-sm-offset-4">
+<div style="width:500px;margin-left:auto;margin-right:auto;">
 	<?php include Kohana::find_file('views', 'errors/partial'); ?>
 
-	<div class="panel panel-default window-shadow">
+	<div class="panel panel-default window-shadow" style="padding:10px">
 		<div class="panel-heading">
 			<h1 class="panel-title"><?php echo $site_name ?></h1>
 		</div>

@@ -1,5 +1,9 @@
 <div class="row">
 	<div class="col-md-12">
-		<?php include Kohana::find_file('views', 'errors/partial'); ?>
+            <p>From: <?php echo $message->user->name; ?></p>
+                
+            <p>Subject: <?php echo $message->subject; ?></p>
+            
+            <?php echo $message->body; ?>
 	</div>
 </div>

@@ -1,3 +1,8 @@
+<style>
+    .unreadnotice{
+        background-color: #D4FADC; 
+    }
+</style>
 <div class="row vcard">
 	<div class="col-md-9 col-sm-8 col-xs-12" itemprop="about" itemscope itemtype="http://schema.org/Person">
 		<div class="row">
@@ -11,11 +16,18 @@
 					<?php
 						if ($is_owner)
 						{
-							echo HTML::anchor('message/inbox', '<i class="fa fa-fw fa-envelope"></i> '.__('Messages') .'<i class="fa fa-chevron-right list-group-chevron"></i>' , array('class' => 'list-group-item'));
+                                                       if(isset($unreadmessages) && $unreadmessages > 0){
+                                                           $showunread=' <span style="color:red; font-size:12px;">'.$unreadmessages.' unread</span>';
+                                                           $greenclass=' unreadnotice';
+                                                       } else {
+                                                           $showunread='';
+                                                           $greenclass=' ';
+                                                       }
+							echo HTML::anchor('message/inbox', '<i class="fa fa-fw fa-envelope"></i> '.__('Messages') .$showunread.'<i class="fa fa-chevron-right list-group-chevron"></i>' , array('class' => 'list-group-item'.$greenclass));
 						}
 						elseif ( ! User::is_guest())
 						{
-							echo HTML::anchor('message/send', '<i class="fa fa-fw fa-envelope"></i> '.__('Send Message') .'<i class="fa fa-chevron-right list-group-chevron"></i>' , array('class' => 'list-group-item'));
+							echo HTML::anchor('message/compose/'.$user->id, '<i class="fa fa-fw fa-envelope"></i> '.__('Send Message') .'<i class="fa fa-chevron-right list-group-chevron"></i>' , array('class' => 'list-group-item'));
 						}
 					?>
 					<?php echo HTML::anchor('buddy', '<i class="fa fa-fw fa-group"></i> '.__('Friends') .'<i class="fa fa-chevron-right list-group-chevron"></i>' , array('class' => 'list-group-item')); ?>

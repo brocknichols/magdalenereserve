@@ -119,8 +119,8 @@ function loadCalendar(){
                             jQuery( "#d"+dateString+" table:odd" ).css( "background-color", "#EBEBEB" ); 
                             jQuery('#d'+dateString).attr('title', dateString);
                             jQuery('#d'+dateString).dialog({
-                                maxHeight: 250,
-                                width: 400,
+                                maxHeight: 350,
+                                width: 600,
                                 show: {effect: 'fade', duration: '150'},
                                 hide: {effect: 'fade', duration: '10'},
                                 position: {

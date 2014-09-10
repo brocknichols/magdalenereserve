@@ -327,4 +327,15 @@ class Model_Message extends ORM {
 
 		return (bool) $result->loaded();
 	}
+        
+        public function count_unread(){
+            
+            $user = User::active_user();
+            
+            $result = ORM::factory('user')
+                                ->where('recipient', '=', $user->id)
+				->and_where('status', '=', 'unread');
+            
+            return $result;
+        }
 }

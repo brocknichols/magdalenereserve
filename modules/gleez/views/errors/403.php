@@ -34,9 +34,7 @@
 </head>
 <body>
 
-  <div class="row navbar pretty" id="nav1" gumby-fixed="0px">
-
-  <a class="toggle" gumby-trigger="#nav1 > ul" href="#"><i class="icon-menu"></i></a>
+  <div class="row navbar pretty" gumby-fixed="0px">
 
   <h1 class="one columns logo">
 
@@ -63,7 +61,7 @@
 
           <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
-          <li><a href="#">Resources</a></li>
+          <li><a href="<?php echo URL::site('/pages/resources');?>">Resources</a></li>
 
         </ul>
 
@@ -93,8 +91,6 @@
                 </div>
         	<div class="row">
 
-<div class="col-md-12 page-container">
-
                   <?php  
                     		// Create form action
               $user        = ORM::factory('user');
@@ -112,7 +108,6 @@
                 echo $view;
                 ?>
 
-	</div>
                 </div>
     </div>
         </main>
@@ -139,7 +134,7 @@
         <ul class="one_up tiles bottomul bottomulsub">
                 <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
                 <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
-            <li><a href="#">Resources</a></li>
+            <li><a href="<?php echo URL::site('/pages/resources');?>">Resources</a></li>
         </ul>
     </div>
 

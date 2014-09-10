@@ -51,7 +51,7 @@
 
           <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
-          <li><a href="#">Resources</a></li>
+          <li><a href="<?php echo URL::site('/pages/resources');?>">Resources</a></li>
 
         </ul>
 
@@ -65,7 +65,7 @@
 
     <li><a href="#">Local Savings</a></li>
 
-    <li><a href="#">Contact</a></li>
+    <li><a href="<?php echo URL::site('/contact');?>">Contact</a></li>
     
    
 
@@ -127,10 +127,34 @@
 	}
 
 	</script>
-<!--        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>-->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
 
+        <script type="text/javascript">
+        
+        $(function(){	
 
+        var $window = jQuery(window);
+	var scrollTime = 1.0;
+	var scrollDistance = 270;
+
+	$window.on("mousewheel DOMMouseScroll", function(event){
+
+		event.preventDefault();	
+
+		var delta = event.originalEvent.wheelDelta/120 || -event.originalEvent.detail/3;
+		var scrollTop = $window.scrollTop();
+		var finalScroll = scrollTop - parseInt(delta*scrollDistance);
+
+		TweenMax.to($window, scrollTime, {
+			scrollTo : { y: finalScroll, autoKill:true },
+				ease: Power1.easeOut,
+				overwrite: 5							
+			});
+
+	});
+});
+    </script>
         <?php echo HTML::script('media/js/libs/ui/welcome.js', NULL, TRUE); ?>
 
 <!--	<script>

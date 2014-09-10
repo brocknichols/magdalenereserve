@@ -50,6 +50,7 @@ class Controller_Admin extends Template {
 			ACL::redirect('administer site', 'admin/login');
 		}
 
+                View::set_global('adminsite', true);
 		parent::before();
 	}
 	

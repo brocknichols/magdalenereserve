@@ -208,6 +208,12 @@ if ( ! Route::cache())
 		'controller' => 'autocomplete',
 		'type'       => 'blog',
 	));
+        
+        Route::set('webservices/widget', 'webservices/widgets(/<action>)(/<string>)')
+	->defaults(array(
+                'directory'  => 'webservices',
+		'controller' => 'widgets',
+	));
 
 	Route::set('page', 'page(/<action>)(/<id>)(/p<page>)', array(
 		'id'         => '\d+',

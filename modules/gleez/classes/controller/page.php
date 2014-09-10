@@ -77,7 +77,7 @@ class Controller_Page extends Template {
 			$posts->where('status', '=', 'publish');
 		}
 
-		$this->title = __('Pages');
+		$this->title = __('Community Pages');
 		$this->schemaType = 'WebPage';
 
 		/**

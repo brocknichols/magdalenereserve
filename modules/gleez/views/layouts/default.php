@@ -25,8 +25,8 @@
 <div class="content_wrapper">  
 	<!-- ########## Navbar start ########## -->
  
- <div class="row navbar pretty" id="nav1" gumby-fixed="0px">
-  <a class="toggle" gumby-trigger="#nav1 > ul" href="#"><i class="icon-menu"></i></a>
+ <div class="row navbar pretty nav2" id="nav1" gumby-fixed="0px">
+  <a class="toggle" gumby-trigger=".nav2 > ul" href="#"><i class="icon-menu"></i></a>
 
   <h1 class="one columns logo">
 
@@ -52,7 +52,7 @@
 
           <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
-          <li><a href="#">Resources</a></li>
+          <li><a href="<?php echo URL::site('/pages/resources');?>">Resources</a></li>
 
         </ul>
 
@@ -132,7 +132,7 @@
         <ul class="one_up tiles bottomul bottomulsub">
                 <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
                 <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
-            <li><a href="#">Resources</a></li>
+            <li><a href="<?php echo URL::site('/pages/resources');?>">Resources</a></li>
         </ul>
     </div>
 
@@ -145,17 +145,33 @@
             jQuery('.alert').delay(4000).fadeOut();
         }
         
-    jQuery('.openit').on('click', function(){
-        jQuery(this).parent().parent().find('.panel-body').slideDown('slow');
-        if(jQuery(this).parent().parent().hasClass('widget-calendar-widget')){
-        jQuery('#calendararea').empty();
-        loadCalendar();
-    }
+    jQuery('.openclose').on('click', function(){
+        if(jQuery(this).hasClass('openwidget')){
+            jQuery.ajax({
+                type: "POST",
+                url: "<?php echo URL::site('webservices/widgets/setcookie');?>",
+                data: { widget: jQuery(this).parent().parent().attr('data-val'), val: 1}
+              });
+                
+            jQuery(this).removeClass('openwidget');
+            jQuery(this).addClass('closewidget');
+            jQuery(this).parent().parent().find('.panel-body').slideDown('slow');
+            if(jQuery(this).parent().parent().attr('data-val')=='calendar-widget'){
+            jQuery('#calendararea').empty();
+            loadCalendar();
+            }
+        } else {
+            jQuery.ajax({
+                type: "POST",
+                url: "<?php echo URL::site('webservices/widgets/setcookie');?>",
+                data: { widget: jQuery(this).parent().parent().attr('data-val'), val: 0}
+              });
+            jQuery(this).addClass('openwidget');
+            jQuery(this).removeClass('closewidget');
+            jQuery(this).parent().parent().find('.panel-body').slideUp('slow');
+        }
     })
     
-    jQuery('.closeit').on('click', function(){
-        jQuery(this).parent().parent().find('.panel-body').slideUp('slow');
-    })
     
    </script>
 	<?php echo Assets::codes(FALSE); ?>

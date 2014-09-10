@@ -75,7 +75,9 @@
 					<?php echo $captcha; ?>
 				</div>
 			<?php endif; ?>
-
+	<div class="form-actions">
+		<?php echo Form::submit('page', __('Save'), array('class' => 'btn btn-success bth-lg')); ?>
+	</div>
 		</div>
 
 		<div id="side-info-column" class="col-md-3">
@@ -194,8 +196,6 @@
 		</div>
 	</div>
 
-	<div class="form-actions">
-		<?php echo Form::submit('page', __('Save'), array('class' => 'btn btn-success bth-lg')); ?>
-	</div>
+
 
 <?php echo Form::close() ?>

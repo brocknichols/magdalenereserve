@@ -143,6 +143,7 @@ class User {
 	 */
 	public static function belongsto($groups)
 	{
+
 		if ($groups == 'all' OR is_null($groups))
 		{
 			return TRUE;
@@ -173,7 +174,7 @@ class User {
 			return FALSE;
 		}
 
-		if (in_array('guest', $groups) OR array_key_exists(1, $groups))
+		if (in_array('guest', $groups) OR in_array(1, $groups))
 		{
 			return TRUE;
 		}

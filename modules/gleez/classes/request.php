@@ -985,7 +985,7 @@ class Request implements HTTP_Request {
                         if($params['controller']=='blog' && isset($params['id']) && !is_int($params['id'])  && !in_array($params['action'], $ignore_defaults)){
                             Path::load(array('alias'=>'blogs/'.$params['id']));
                         }
-                        
+
 			// These are accessible as public vars and can be overloaded
 			unset($params['controller'], $params['action'], $params['directory']);
 

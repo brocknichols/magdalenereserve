@@ -438,6 +438,7 @@ class Widgets {
 		static $current_route;
 		$widget->visible = TRUE;
 
+
 		if (is_null($current_route))
 		{
 			$current_route = Request::current()->uri();
@@ -491,6 +492,12 @@ class Widgets {
 
 		$widget->name = str_replace('/', '-', $widget->name);
 		$widget->menu = (bool)(strpos($widget->name, 'menu-'));
+                
+                // see if open close cookie set
+                $cookie=Cookie::get($widget->name);
+                if($widget->name=='menu-user-menu' && Cookie::get($widget->name)==null){
+                    $cookie=1;
+                }
 
 		return View::factory('widgets/' .$format)
 			->set('content', $widget->content)
@@ -498,6 +505,7 @@ class Widgets {
 			->set('widget',  $widget)
 			->set('zebra',   $zebra)
 			->set('id', $id)
+                        ->set('opencookie', $cookie)
 			->render();
 	}
 }

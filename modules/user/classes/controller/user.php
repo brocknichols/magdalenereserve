@@ -295,6 +295,11 @@ class Controller_User extends Template {
 			$request   = Model::factory('buddy')->isRequest($account->id, $user->id);
 			$isFriend  = Model::factory('buddy')->isFriend($account->id, $user->id);
 			$friends   = Model::factory('buddy')->friends($user->id, 5);
+                        $unreadmessage = ORM::factory('message')
+                                        ->where('recipient', '=', $user->id)
+                                        ->and_where('status','=','unread')
+                                        ->find_all();
+
 		}
 
 		$view = View::factory('user/profile')
@@ -302,6 +307,7 @@ class Controller_User extends Template {
 					->set('is_owner',	 $is_owner)
 					->set('request',	 $request)
 					->set('isfriend',	 $isFriend)
+                                        ->set('unreadmessages',  count($unreadmessage))
 					->set('friends', 	 $friends);
 
 		$this->response->body($view);
