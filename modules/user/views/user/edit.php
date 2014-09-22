@@ -1,5 +1,21 @@
-<div class="row">
-	<div class="col-md-3 col-sm-4">
+<style>
+    .pill-back{
+    background: #FFF;
+    padding: 10px;
+    }
+    .page-header h1{
+        background: #FFF;
+        opacity: .8;
+        border-bottom: 1px solid #000;
+        padding-left:20px;
+        font-weight:500;
+    }
+    .page-container{
+        box-shadow: none;
+    }
+</style>   
+    <div class="row">
+	<div class="col-md-3 col-sm-4 pill-back">
 		<?php include Kohana::find_file('views', 'user/edit_link'); ?>
 	</div>
 

@@ -1,4 +1,10 @@
-<?php echo Form::open($action, array('id'=>'blog-form', 'class'=>'blog-form form', 'enctype' => 'multipart/form-data')); ?>
+<style>
+    .cancel_button{
+        vertical-align:bottom;
+        margin-left:10px;
+    }
+</style>    
+    <?php echo Form::open($action, array('id'=>'blog-form', 'class'=>'blog-form form', 'enctype' => 'multipart/form-data')); ?>
 
 	<?php include Kohana::find_file('views', 'errors/partial'); ?>
 
@@ -75,6 +81,7 @@
 			<?php endif; ?>
 	<div class="form-actions">
 		<?php echo Form::submit('blog', __('Save'), array('class' => 'btn btn-success bth-lg')); ?>
+            <button class="btn btn-danger bth-lg cancel_button"><a href="<?php echo $referrer; ?>">Cancel</a></button>
 	</div>
 		</div>
 
@@ -134,6 +141,7 @@
 
 							<div id="publishing-action">
 								<?php echo Form::submit('blog', __('Save'), array('class' => 'btn btn-success pull-right')) ?>
+                                                            <button class="btn btn-danger bth-lg cancel_button"><a href="<?php echo $referrer; ?>">Cancel</a></button>
 							</div>
 						</div>
 					</div>

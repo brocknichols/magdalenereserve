@@ -261,6 +261,8 @@ class Controller_Page extends Template {
 	public function action_add()
 	{
 		ACL::required('create page');
+                
+                $referrer = $this->request->referrer();
 
 		$this->title = __('Add Page');
 		$config = Config::load('page');
@@ -277,6 +279,7 @@ class Controller_Page extends Template {
 					->set('created',     FALSE)
 					->set('author',      FALSE)
 					->set('path',        FALSE)
+                                        ->set('referrer',    $referrer)
 					->set('tags',        isset($_POST['ftags']) ? $_POST['ftags'] : FALSE)
 					->bind('errors',     $this->_errors)
 					->bind('terms',      $terms)
@@ -288,6 +291,7 @@ class Controller_Page extends Template {
 
 		if($config->get('use_category', FALSE))
 		{
+                    
 			$terms = ORM::factory('term', array('type' => 'page', 'lvl' => 1))->select_list('id', 'name', '--');
 		}
 

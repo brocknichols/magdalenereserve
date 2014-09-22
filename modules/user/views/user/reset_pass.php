@@ -1,3 +1,17 @@
+<style>
+        .page-container{
+        box-shadow: none;
+    }
+    .page-header{
+        background:#fff;
+        opacity:.8;
+        border-bottom: 1px solid #000;
+    }
+    .page-header h1{
+        text-shadow:none;
+        font-weight:500;
+    }
+</style>
 <div class="col-sm-6 col-sm-offset-3">
 	<?php include Kohana::find_file('views', 'errors/partial'); ?>
 

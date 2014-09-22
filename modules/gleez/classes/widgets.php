@@ -495,7 +495,7 @@ class Widgets {
                 
                 // see if open close cookie set
                 $cookie=Cookie::get($widget->name);
-                if($widget->name=='menu-user-menu' && Cookie::get($widget->name)==null){
+                if(($widget->name=='menu-user-menu' && Cookie::get($widget->name)==null) || ($widget->name=='calendar-widget' && Cookie::get($widget->name)==null)){
                     $cookie=1;
                 }
 

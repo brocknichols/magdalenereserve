@@ -196,6 +196,16 @@ if ( ! Route::cache())
 		'directory'  => 'admin',
 		'controller' => 'dashboard',
 	));
+        
+        Route::set('admin/poll', 'admin/polls(/<action>(/<id>))', array(
+		'id'         => '\d+',
+		'action'     => 'index|list|add|delete'
+	))
+	->defaults(array(
+		'directory'  => 'admin',
+		'controller' => 'poll',
+		'action'     => 'list',
+	));
 
 // -- Gleez frontend routes ----------------------------------------------------
 
@@ -295,7 +305,16 @@ if ( ! Route::cache())
 			'controller' => 'tag',
 			'action'     => 'view',
 		));
-        
+        Route::set('polls', 'poll(/<action>)(/<id>)(/p<page>)', array(
+		'id'         => '\d+',
+		'page'       => '\d+',
+		'action'     => 'index|list|view|add|edit|delete|existing'
+	))
+	->defaults(array(
+		'controller' => 'poll',
+		'action'     => 'list'
+	));
+
 }
 
 /**

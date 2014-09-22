@@ -10,6 +10,7 @@
  */
 class Controller_Blog extends Template {
 
+        private $firstlogin=FALSE;
 	/**
 	 * The before() method is called before controller action
 	 *
@@ -30,6 +31,12 @@ class Controller_Blog extends Template {
 		{
 			$this->request->action('list');
 		}
+                
+                if ( $this->request->action() == 'firstlogin')
+		{
+                    $this->firstlogin=TRUE;
+                    $this->request->action('list');
+                }
 
 		ACL::required('access content');
 
@@ -91,12 +98,12 @@ class Controller_Blog extends Template {
 			$this->response->body(View::factory('blog/none'));
 			return;
 		}
-
 		$config = Config::load('blog');
 
 		$view = View::factory('blog/list')
 			->set('teaser',      TRUE)
 			->set('config',      $config)
+                        ->set('firstlogin',  $this->firstlogin)
 			->bind('rss_link',   $rss_link)
 			->bind('pagination', $pagination)
 			->bind('posts',      $posts);
@@ -249,6 +256,7 @@ class Controller_Blog extends Template {
 	 */
 	public function action_add()
 	{
+                $referrer = $this->request->referrer();
 		ACL::required('create blog');
 
 		$this->title = __('Add Blog');
@@ -268,6 +276,7 @@ class Controller_Blog extends Template {
 			->set('path',        FALSE)
 			->set('tags',        isset($_POST['ftags']) ? $_POST['ftags'] : FALSE)
 			->set('image',        FALSE)
+                        ->set('referrer',    $referrer)
 			->bind('errors',     $this->_errors)
 			->bind('terms',      $terms)
 			->bind('blog',       $post);

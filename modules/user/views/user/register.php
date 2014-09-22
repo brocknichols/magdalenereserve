@@ -1,11 +1,37 @@
 <?php include Kohana::find_file('views', 'errors/partial'); ?>
-
+<style>
+        .page-container{
+        box-shadow: none;
+    }
+    .page-container{
+        box-shadow: none;
+    }
+    .page-header{
+        background:#fff;
+        opacity:.8;
+        border-bottom: 1px solid #000;
+    }
+    .page-header h1 {
+text-shadow: none;
+font-weight: 500;
+padding-left: 20px;
+}
+.control-label {
+text-align: right;
+font-size: 14px;
+}
+.register_intro{
+    font-style: italic;
+    font-size:14px;
+}
+</style>
 <div class="col-sm-6">
 	<div class="panel panel-default window-shadow">
 		<div class="panel-heading">
 			<h3 class="panel-title">
 				<?php _e('Fill in the information below to register') ?>
 			</h3>
+                    <p class="register_intro">A confirmation email will be sent to the address provided. You must click the link provided in that email to gain access to site restricted areas</p>
 		</div>
 		<?php echo Form::open($action, array('class' => 'form-horizontal', 'role' => 'form')); ?>
 		<div class="panel-body">
@@ -52,30 +78,30 @@
 					</div>
 				<?php endif ?>
 
-				<div class="form-group <?php echo isset($errors['gender']) ? 'has-error': ''; ?>">
-					<?php echo Form::label('gender', __('Gender'), array('class' => 'col-sm-3 control-label')); ?>
+<!--				<div class="form-group <?php // echo isset($errors['gender']) ? 'has-error': ''; ?>">
+					<?php // echo Form::label('gender', __('Gender'), array('class' => 'col-sm-3 control-label')); ?>
 					<div class="col-xs-12 col-sm-8">
 						<div class="radio">
-							<?php echo Form::label('gender1', Form::radio('gender', 1, $male) . __('Male')); ?>
+							<?php // echo Form::label('gender1', Form::radio('gender', 1, $male) . __('Male')); ?>
 						</div>
 						<div class="radio">
-							<?php echo Form::label('gender2', Form::radio('gender', 2, $female) . __('Female')); ?>
+							<?php // echo Form::label('gender2', Form::radio('gender', 2, $female) . __('Female')); ?>
 						</div>
 					</div>
 				</div>
 
-				<div class="form-group <?php echo isset($errors['dob']) ? 'has-error': ''; ?>">
-					<?php echo Form::label('dob', __('Birthday'), array('class' => 'col-sm-3 control-label')); ?>
+				<div class="form-group <?php // echo isset($errors['dob']) ? 'has-error': ''; ?>">
+					<?php // echo Form::label('dob', __('Birthday'), array('class' => 'col-sm-3 control-label')); ?>
 					<div class="col-sm-3">
-						<?php echo Form::select('month', Date::months(Date::MONTHS_SHORT), '', array('class' => 'form-control')); ?>
+						<?php // echo Form::select('month', Date::months(Date::MONTHS_SHORT), '', array('class' => 'form-control')); ?>
 					</div>
 					<div class="col-sm-2">
-						<?php echo Form::select('days',  Date::days(Date::DAY), '', array('class' => 'form-control')); ?>
+						<?php // echo Form::select('days',  Date::days(Date::DAY), '', array('class' => 'form-control')); ?>
 					</div>
 					<div class="col-sm-3">
-						<?php echo Form::select('years', Date::years(date('Y') - 95, date('Y') - 5), date('Y') - 5, array('class' => 'form-control')); ?>
+						<?php // echo Form::select('years', Date::years(date('Y') - 95, date('Y') - 5), date('Y') - 5, array('class' => 'form-control')); ?>
 					</div>
-				</div>
+				</div>-->
 
 				<?php if ($config->use_captcha  AND ! $captcha->promoted()) : ?>
 					<div class="form-group captcha <?php echo isset($errors['captcha']) ? 'has-error': ''; ?>">

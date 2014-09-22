@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<?php echo Meta::links(); ?>
 	<?php echo Assets::css(); ?>
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -14,7 +15,9 @@
     <![endif]-->
 	<!--[if gt IE 9]>
 		<?php echo HTML::script('media/css/ie-gte-9.css', NULL, TRUE); ?>
+ 
 	<![endif]-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 </head>
 <body id="<?php echo $page_id; ?>" class="<?php echo $page_class; ?>">
 

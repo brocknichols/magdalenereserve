@@ -35,12 +35,14 @@ class Controller_User extends Template {
 		if (($this->_user = $this->_auth->get_user()) === FALSE)
 		{
 			$this->_user = ORM::factory('user');
+                        
 		}
 
 		if (strpos($this->request->uri(), 'user/reset/', 0) !== FALSE)
 		{
 			$this->request->action('reset_'.$this->request->action());
 		}
+                
 
 		// Disable sidebars on user pages
 		$this->_sidebars = FALSE;
@@ -120,12 +122,12 @@ class Controller_User extends Template {
 				Log::info('Registration for account :title created successful.', array(':title' => $post->nick));
 				Message::success(__('Registration for account %title successful!', array('%title' => $post->nick)));
 
-				$this->request->redirect(Route::get('user')->uri(array('action' => 'profile')));
+				$this->request->redirect(Route::get('user')->uri(array('action' => 'login', 'id'=>'210')), 200);
 			}
-			catch (ORM_Validation_Exception $e)
-			{
-				$this->_errors = $e->errors('models', TRUE);
-			}
+                            catch (ORM_Validation_Exception $e)
+                            {
+                                    $this->_errors = $e->errors('models', TRUE);
+                            }
 		}
 
 		$this->response->body($view);
@@ -142,12 +144,38 @@ class Controller_User extends Template {
 	 */
 	public function action_login()
 	{
+            
 		// If user already signed-in
 		if ($this->_auth->logged_in())
 		{
+                    $roles=$this->_user->roles->find_all()->as_array('name');
+
+                                if(count($roles)==1 && $roles['login']->id==2){
+                                    $this->_user->login=0;
+                                    $this->_user->logins=0;
+                                    $this->_user->save();
+                                    Auth::instance()->logout();
+                                    $this->request->redirect(Route::get('user')->uri(array('action' => 'login', 'id'=>'210')), 200);
+                                }
+                        if($this->_user->logins==1){
+                                $this->request->redirect(Route::get('default')->uri(array('controller'=>'blog', 'action' => 'firstlogin')), 200);
+                        }
 			// redirect to the user account
 			$this->request->redirect(Route::get('user')->uri(array('action' => 'profile')), 200);
 		}
+                $id = $this->request->param('id', FALSE);
+                switch($id){
+                    case 403:
+                        $force_error="You must sign in to view the requested page";
+                        break;
+                    // case 210 for someone who has registered but not clicked their email link yet
+                    case 210:
+                        $force_error="Please confirm your account by clicking the confirmation link in your email before logging in";
+                        break;
+                    default:
+                        $force_error=null;
+                        break;
+                }
 
 		$this->title = __('Sign In');
 		$user        = ORM::factory('user');
@@ -166,6 +194,7 @@ class Controller_User extends Template {
 			->set('providers',    array_filter(Auth::providers()))
 			->set('post',         $user)
 			->set('action',       $action)
+                        ->set('force_error',    $force_error)
 			->bind('errors',      $this->_errors);
 
 		if ($this->valid_post('login'))
@@ -174,6 +203,8 @@ class Controller_User extends Template {
 			{
 				// Check Auth
 				$user->login($this->request->post());
+                                
+                                
 
 				// If the post data validates using the rules setup in the user model
 				Message::success(__('Welcome, %title!', array('%title' => $user->nick)));
@@ -288,6 +319,18 @@ class Controller_User extends Template {
 		if ($account AND ($user->id === $account->id))
 		{
 			$is_owner = TRUE;
+                        $new_poll=FALSE;
+                        
+
+                        // Check for any new unanswered polls
+                        $query=DB::select('polls.id')
+                                ->from('polls')
+                                ->where('id','NOT IN', DB::expr('(select gl_poll_users.poll_id FROM gl_poll_users WHERE gl_poll_users.user_id='.$user->id.')'))
+                                ->execute();
+
+                        if($query->count()>0){
+                            $new_poll=TRUE;
+                        }
 		}
 
 		if($account && $user)
@@ -308,6 +351,7 @@ class Controller_User extends Template {
 					->set('request',	 $request)
 					->set('isfriend',	 $isFriend)
                                         ->set('unreadmessages',  count($unreadmessage))
+                                        ->set('newpoll',         $new_poll)
 					->set('friends', 	 $friends);
 
 		$this->response->body($view);
@@ -344,6 +388,7 @@ class Controller_User extends Template {
 				->set('male',    $male)
 				->set('action',  $action)
 				->set('female',  $female)
+                                ->set('activeli'    ,'edit')
 				->bind('errors', $this->_errors);
 
 		// Form submitted
@@ -400,6 +445,7 @@ class Controller_User extends Template {
 		$view = View::factory('user/password')
 				->set('destination', $destination)
 				->set('params',      $params)
+                                ->set('activeli'    ,'password')
 				->bind('errors',     $this->_errors);
 
 		// Form submitted
@@ -447,6 +493,7 @@ class Controller_User extends Template {
 		$view = View::factory('user/photo')
 					->set('user',          $user)
 					->set('allowed_types', $allowed_types)
+                                        ->set('activeli'    ,'photo')
 					->bind('errors',       $this->_errors);
 
 		// Form submitted

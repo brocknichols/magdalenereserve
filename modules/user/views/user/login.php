@@ -1,7 +1,34 @@
-<?php
-	// @todo Should be moved to controller
-	Assets::css('user', 'media/css/user.css', array('weight' => 2));
-?>
+
+<style>
+    .page-header{
+        background:#fff;
+        opacity:.8;
+        border-bottom: 1px solid #000;
+    }
+    .force_error{
+        color: #ff0033;
+        text-align: center;
+        font-size: 22px;
+        background: #F0F06D;
+        padding: 10px;
+    }
+    body{
+        background: url('/media/images/holloween3.jpg') no-repeat center center fixed;
+        
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    .page-container{
+        box-shadow: none;
+    }
+    .page-header h1 {
+text-shadow: none;
+font-weight: 500;
+padding-left: 20px;
+}
+</style>
 
 <div style="width:500px;margin-left:auto;margin-right:auto;">
 	<?php include Kohana::find_file('views', 'errors/partial'); ?>
@@ -10,6 +37,8 @@
 		<div class="panel-heading">
 			<h1 class="panel-title"><?php echo $site_name ?></h1>
 		</div>
+            <?php if(isset($force_error) && $force_error!=null): ?><div class="force_error"><?php echo $force_error; ?></div>
+            <?php endif; ?>
 		<?php echo Form::open($action, array('class' => 'form form-horizontal', 'role' => 'form')); ?>
 			<div class="panel-body">
 				<div class="form-group">

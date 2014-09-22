@@ -1,10 +1,45 @@
-<div class="post-page-wrapper col-md-12">
+<style>
+    .download_link{
+        position:relative;
+        margin-top:40px;
+        min-height: 130px;
+    }
+    .attachment_top{
+        display: inline-block;
+        border-top: solid 1px #B6B6B6;
+        border-left: solid 1px #B6B6B6;
+        border-right: solid 1px #B6B6B6;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        padding: 10px;
+        background: #F0F0F0;
+    }
+    .attachment_body{
+        border: solid 1px #B6B6B6;
+        display: inline-block;
+        clear: both;
+        padding: 20px;
+        z-index: 0;
+        position: absolute;
+        top: 47px;
+        left: 0px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        box-shadow: 0 0 20px #DADADA, inset 0 0 0 #E6E6E6;
+    }
+    .file_download{
+        margin-left:7px;
+    }
+    </style>
+        <div class="post-page-wrapper col-md-12">
 	<?php if (isset($page)): ?>
 		<div class="post-page">
 			<?php echo $page; ?>
 		</div>
     <div class="download_link">
-                        Attachment: <?php echo HTML::anchor($attachment['url'], $attachment['rawimage']); ?>
+        <div class="attachment_top">Attachment</div>
+        <div class="attachment_body"><i class="fa fa-file-text-o"></i><span class="file_download"><?php echo HTML::anchor($attachment['url'], $attachment['rawimage']); ?></span></div>
     </div>
 	<?php endif;?>
 </div>

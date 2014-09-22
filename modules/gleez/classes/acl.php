@@ -232,22 +232,26 @@ class ACL {
 	 */
 	public static function required($perm_name, Model_User $user = NULL, $callback = NULL, array $args = array())
 	{
+            
 		if ( ! self::check($perm_name, $user))
 		{
+                    
 			if ( ! is_null($callback))
 			{
+                           
 				// Check if the $callback is a valid callback
 				if ( ! is_callable($callback))
 				{
 					throw new Exception('An invalid callback was added to the ACL::required().');
 				}
+                                
 				call_user_func($callback, $args);
 
 				return;
 			}
-
+                        header("Location: http://magdalenereserve.com/user/login/403");
+                        exit;
 			// If the action is set and the role hasn't been matched, the user doesn't have permission
-                        
 			throw HTTP_Exception::factory(403, 'Unauthorized attempt to access action :perm.',
 				array(':perm' => $perm_name));
 		}

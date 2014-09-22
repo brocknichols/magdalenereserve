@@ -2,9 +2,32 @@
     .unreadnotice{
         background-color: #D4FADC; 
     }
+    .newpoll h3{
+        background-color: #E0F8C9;
+    }
+    .center-container{
+        background: #FFF;
+        /* padding: 0 1em 1em; */
+        margin-bottom: 1em;
+        -webkit-border-radius: 40px;
+        -moz-border-radius: 40px;
+        -o-border-radius: 40px;
+        border-radius: 40px;
+        padding-bottom: 15px;
+    }
+    .page-header h1{
+        background: #FFF;
+        opacity: .8;
+        border-bottom: 1px solid #000;
+        padding-left:20px;
+        font-weight:500;
+    }
+    .page-container{
+        box-shadow: none;
+    }
 </style>
 <div class="row vcard">
-	<div class="col-md-9 col-sm-8 col-xs-12" itemprop="about" itemscope itemtype="http://schema.org/Person">
+	<div class="col-md-9 col-sm-8 col-xs-12 center-container" itemprop="about" itemscope itemtype="http://schema.org/Person">
 		<div class="row">
 			<div class="col-md-3 col-sm-5 col-xs-12">
 				<div class="thumbnail vcard-avatar">
@@ -56,14 +79,14 @@
 							</dl>
 						<?php endif; ?>
 
-						<dl title="<?php echo __('Birthday') ?>">
+<!--						<dl title="<?php // echo __('Birthday') ?>">
 							<dt><i class="fa fa-fw fa-calendar"></i></dt>
 							<dd>
-								<time itemprop="birthDate" content="<?php echo Date::date_format($user->dob, DateTime::ISO8601)?>" datetime="<?php echo Date::date_format($user->dob, DateTime::ISO8601)?>">
-									<?php echo Date::date_format($user->dob); ?>
+								<time itemprop="birthDate" content="<?php // echo Date::date_format($user->dob, DateTime::ISO8601)?>" datetime="<?php echo Date::date_format($user->dob, DateTime::ISO8601)?>">
+									<?php // echo Date::date_format($user->dob); ?>
 								</time>
 							</dd>
-						</dl>
+						</dl>-->
 						<?php if (User::is_admin()): ?>
 							<dl title="<?php echo __('User Groups') ?>">
 								<dt><i class="fa fa-fw fa-group"></i></dt>
@@ -98,11 +121,20 @@
 						</div>
 					<?php endif; ?>
 				</div>
+                                <?php if($newpoll) : ?>
+                                <div class="newpoll"><h3>A New Poll is Available</h3>
+                                <p>Your feedback is always appreciated. Please take the time to respond to the new poll. Remember: all poll information collected is completely anonymous.
+                                So, please respond honestly.</p>
+                                <p>You may click <?php echo HTML::anchor("poll/" , __('HERE'), array('class' => 'btn btn-success')); ?> to view it</p>
+                                <p>Thank you</p>
+                                <p>Magdalene Reserve HOA</p>
+                                </div>
+                                <?php endif; ?>
 			</div>
 		</div>
 	</div>
 
-	<div class="col-md-3 col-sm-4 col-xs-12 col-sidebar-right">
+	<div class="col-md-3 col-sm-4 col-xs-12">
 		<div class="list-group">
 			<a href="#" class="list-group-item"><h3 class="pull-right"><i class="fa fa-sign-in"></i></h3>
 				<h4 class="list-group-item-heading"><?php echo Date::date_format($user->created, 'M d, Y'); ?></h4>

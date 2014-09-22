@@ -35,7 +35,7 @@
 <body>
 
   <div class="row navbar pretty" gumby-fixed="0px">
-
+ <a class="toggle" gumby-trigger=".nav2 > ul" href="#"><i class="icon-menu"></i></a>
   <h1 class="one columns logo">
 
     <a href="<?php echo URL::site(); ?>">
@@ -47,7 +47,7 @@
   </h1>
 
 <div class="nav_container">
-  <ul class="six columns right">
+  <ul class="six columns right" id="navdisplay">
 
     <li>
 
@@ -57,7 +57,9 @@
 
         <ul>
 
-          <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">Neighbor Talk</a></li>
+          <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
+          
+          <li><a href="<?php echo URL::site('/poll');?>">Neighbor Polls</a></li>
 
           <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
@@ -133,8 +135,7 @@
         </ul>
         <ul class="one_up tiles bottomul bottomulsub">
                 <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
-                <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
-            <li><a href="<?php echo URL::site('/pages/resources');?>">Resources</a></li>
+                <li><a href="<?php echo URL::site('/poll');?>">Neighbor Polls</a></li>
         </ul>
     </div>
 
@@ -161,6 +162,13 @@
 	}
 	}
 
+         jQuery('.toggle').on('click', function(){
+            if(jQuery('#navdisplay').is(':visible')){
+                jQuery('#navdisplay').css('display','none');
+            } else {
+            jQuery('#navdisplay').css('display','table');
+        }
+        })
 	</script>
 <!--        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>-->

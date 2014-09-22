@@ -15,9 +15,23 @@
 
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
+        <?php echo Meta::links(); ?>
+        <?php echo Assets::css(); ?>
         <?php echo HTML::style('media/css/gumbys.css', NULL, TRUE); ?>
 	<?php echo HTML::script('media/js/libs/modernizr-2.6.2.min.js', NULL, TRUE); ?>
+        
+                
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		<?php echo HTML::script('media/js/html5shiv.js', NULL, TRUE); ?>
+		<?php echo HTML::script('media/js/respond.min.js', NULL, TRUE); ?>
+    <![endif]-->
+	<!--[if gt IE 9]>
+		<?php echo HTML::script('media/css/ie-gte-9.css', NULL, TRUE); ?>
+	<![endif]-->
+        <?php echo Assets::js(FALSE); ?>
+
 </head>
 <body>
 
@@ -36,7 +50,7 @@
   </h1>
 
 <div class="nav_container">
-  <ul class="six columns right">
+  <ul class="six columns right" id="navdisplay">
 
     <li>
 
@@ -48,6 +62,8 @@
 
 
           <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
+          
+          <li><a href="<?php echo URL::site('/poll');?>">Neighbor Polls</a></li>
 
           <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
@@ -66,7 +82,31 @@
     <li><a href="#">Local Savings</a></li>
 
     <li><a href="<?php echo URL::site('/contact');?>">Contact</a></li>
-    
+     <?php if (User::is_guest()): ?>
+						<li><a href="<?php echo URL::site('/user/login'); ?>"><i class="fa fa-fw fa-white fa-chevron-left"></i><?php echo __('Sign In') ?></a></li>
+					<?php else:  ?>
+						<li class="dropdown">
+							<?php echo HTML::anchor('#', User::getAvatar($_user, array('size' => 20)).' '.$_user->name.'<b class="caret"></b>', array('data-toggle' => 'dropdown', 'class' => 'dropdown-toggle')); ?>
+
+							<ul class="dropdown-menu">
+								<li class="dropdown-header nogumby"><strong><?php echo $_user->nick ?></strong></li>
+								<li class="dropdown-header nogumby"><?php echo $_user->mail ?></li>
+								<li class="divider nogumby"></li>
+								<li class="dropdown-header nogumby bg"><?php _e('Profile') ?></li>
+								<li class="dropdown-link nogumby"><a href="<?php echo URL::site('/user/profile') ?>"><i class="fa fa-fw fa-cog"></i> <?php echo __('Profile') ?></a></li>
+								<li class="dropdown-link nogumby"><a href="<?php echo URL::site('/message/inbox') ?>"><i class="fa fa-fw fa-envelope"></i> <?php echo __('Messages') ?></a></li>
+								<li class="dropdown-header nogumby bg"><?php _e('Settings') ?></li>
+								<li class="dropdown-link nogumby"><a href="<?php echo URL::site('/user/edit') ?>"><i class="fa fa-fw fa-pencil"></i> <?php echo __('Profile Settings') ?></a></li>
+								<li class="dropdown-link nogumby"><a href="<?php echo URL::site('/user/password') ?>"><i class="fa fa-fw fa-lock"></i> <?php echo __('Change Password') ?></a></li>
+								<li class="divider nogumby"></li>
+								<?php if (User::is_admin()): ?>
+									<li class="dropdown-link nogumby"><a href="<?php echo URL::site('/admin') ?>"><i class="fa fa-fw fa-dashboard"></i> <?php echo __('Dashboard') ?></a></li>
+								<?php endif; ?>
+								<li class="dropdown-link nogumby"><a href="<?php echo URL::site('/user/logout'); ?>"><i class="fa fa-fw fa-power-off"></i> <?php echo __('Sign Out') ?></a></li>
+							</ul>
+						</li>
+
+					<?php endif; ?>
    
 
   </ul>
@@ -98,8 +138,7 @@
         </ul>
         <ul class="one_up tiles bottomul bottomulsub">
                 <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
-                <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
-            <li><a href="#">Resources</a></li>
+                <li><a href="<?php echo URL::site('/poll');?>">Neighbor Polls</a></li>
         </ul>
     </div>
 
@@ -131,7 +170,13 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
 
         <script type="text/javascript">
-        
+        jQuery('.toggle').on('click', function(){
+            if(jQuery('#navdisplay').is(':visible')){
+                jQuery('#navdisplay').css('display','none');
+            } else {
+            jQuery('#navdisplay').css('display','table');
+        }
+        })
         $(function(){	
 
         var $window = jQuery(window);

@@ -9,6 +9,7 @@
 	<?php echo Assets::css(); ?>
         <?php echo HTML::style('media/css/gumbys.css', NULL, TRUE); ?>
         <?php echo HTML::script('media/js/libs/modernizr-2.6.2.min.js', NULL, TRUE); ?>
+        
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -19,6 +20,15 @@
 		<?php echo HTML::script('media/css/ie-gte-9.css', NULL, TRUE); ?>
 	<![endif]-->
         <?php echo Assets::js(FALSE); ?>
+        <style>
+                body{
+        background: url('/media/images/grey_backgrounds.jpg') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+        </style>
 </head>
 <body id="<?php echo $page_id; ?>" class="<?php echo $page_class; ?>" <?php echo $schemaType ? 'itemscope itemtype="http://schema.org/'.$schemaType.'"' : ''?>>
 
@@ -38,7 +48,7 @@
 
   </h1>
 <div class="nav_container">
-  <ul class="six columns right">
+  <ul class="six columns right" id="navdisplay">
 
     <li>
 
@@ -49,6 +59,8 @@
         <ul>
 
           <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
+          
+          <li><a href="<?php echo URL::site('/poll');?>">Neighbor Polls</a></li>
 
           <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
 
@@ -131,8 +143,7 @@
         </ul>
         <ul class="one_up tiles bottomul bottomulsub">
                 <li><a href="<?php echo URL::site('/blog');?>">Neighbor Talk</a></li>
-                <li><a href="<?php echo URL::site('/pages/hoa-minutes');?>">HOA Minutes</a></li>
-            <li><a href="<?php echo URL::site('/pages/resources');?>">Resources</a></li>
+                <li><a href="<?php echo URL::site('/poll');?>">Neighbor Polls</a></li>
         </ul>
     </div>
 
@@ -144,6 +155,14 @@
         if(jQuery('.alert').length>0){
             jQuery('.alert').delay(4000).fadeOut();
         }
+        
+         jQuery('.toggle').on('click', function(){
+            if(jQuery('#navdisplay').is(':visible')){
+                jQuery('#navdisplay').css('display','none');
+            } else {
+            jQuery('#navdisplay').css('display','table');
+        }
+        })
         
     jQuery('.openclose').on('click', function(){
         if(jQuery(this).hasClass('openwidget')){
@@ -175,7 +194,9 @@
     
    </script>
 	<?php echo Assets::codes(FALSE); ?>
+
         <?php echo HTML::script('media/js/libs/gumby.js', NULL, TRUE); ?>
         <?php echo HTML::script('media/js/libs/ui/gumby.navbar.js', NULL, TRUE); ?>
+   
 </body>
 </html>
