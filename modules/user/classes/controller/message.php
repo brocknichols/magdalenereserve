@@ -202,6 +202,14 @@ class Controller_Message extends Template {
                 //get username 
                 $touser=User::lookup($id);
                 
+                //get all user's name and email
+                
+                $alluser = DB::select('mail', 'name')
+                        ->from('users')
+                        ->orderBy('name', 'ASC')
+                        ->execute()
+                        ->as_array('mail', 'name');
+                
                 $recipient=isset($touser->name) ? $touser->name : FALSE;
 
 		// Set form destination
@@ -214,7 +222,8 @@ class Controller_Message extends Template {
 				->bind('errors',     $this->_errors)
 				->set('destination', $destination)
 				->set('action',      $action)
-				->set('recipient',   $recipient);
+				->set('recipient',   $recipient)
+                                ->set('emails',      $alluser);
 
 		$message = ORM::factory('message');
 
@@ -229,13 +238,23 @@ class Controller_Message extends Template {
 			{
 				$message->values(array(
 					'sender'    => $sender->id,
-					'recipient' => User::lookup_by_name($_POST['recipient']),
+					'recipient' => User::lookup_by_mail($_POST['recipient']),
 					'subject'   => $_POST['subject'],
 					'body'      => $_POST['body'],
 					'status'    => $status,
 					'format'    => $_POST['format'],
 					'sent'      => $sent
 				))->save();
+                                
+                                // Create an email message
+                    $email = Email::factory()
+			->subject($_POST['subject'])
+			->to($_POST['recipient'], User::lookup_by_mail($_POST['recipient'])->nick)
+                        ->from($sender->mail, $sender->nick)
+			->message($_POST['body'], "text/html");
+
+		// Send the message
+		$email->send();
 
 				Log::info('Message :id successfully :act.', array(':id' => $message->id, ':act' => $act));
 				Message::success(__('Message successfully :act.', array(':act' => $act)));

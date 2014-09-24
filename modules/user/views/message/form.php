@@ -1,4 +1,9 @@
-<?php echo Form::open($action, array('class'=>'form')); ?>
+<style>
+    #form-recipient{
+        min-width:200px;
+    }
+</style>
+    <?php echo Form::open($action, array('class'=>'form')); ?>
 
 	<?php include Kohana::find_file('views', 'errors/partial'); ?>
 
@@ -6,7 +11,8 @@
 		<div class="col-md-12">
 			<div class="form-group <?php echo isset($errors['recipient']) ? 'has-error': ''; ?>">
 				<div class="controls">
-					<?php echo Form::input('recipient', $recipient, array('class' => 'form-control', 'placeholder' => __('Enter recipient here'))); ?>
+					<?php // echo Form::input('recipient', $recipient, array('class' => 'form-control', 'placeholder' => __('Enter recipient here'))); ?>
+                                    <?php echo Form::select('recipient', $emails); ?>
 				</div>
 			</div>
 
@@ -22,14 +28,14 @@
 				</div>
 			</div>
 
-			<div class="form-group <?php echo isset($errors['format']) ? 'has-error': ''; ?>">
+<!--			<div class="form-group <?php // echo isset($errors['format']) ? 'has-error': ''; ?>">
 				<div class="controls">
 					<div class="input-group">
-						<span class="input-group-addon"><?php _e('Text format') ?></span>
-						<?php echo Form::select('format', Filter::formats(), $message->format, array('class' => 'form-control')); ?>
+						<span class="input-group-addon"><?php // _e('Text format') ?></span>
+						<?php // echo Form::select('format', Filter::formats(), $message->format, array('class' => 'form-control')); ?>
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</div>
 	</div>
 	<div class="row">
